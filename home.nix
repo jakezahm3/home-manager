@@ -12,7 +12,6 @@
   home.homeDirectory = "/home/jzahm";
 
   imports = [ inputs.nix4nvchad.homeManagerModules.default ];
-
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -72,25 +71,26 @@
       bash-language-server
       nixd
       alejandra
-      nixfmt
       ast-grep
       yaml-language-server
       prettierd
       spectral-language-server
-      ast-grep
+      vscode-langservers-extracted
+      pyright
+      rust-analyzer
+      typescript-language-server
       rustc
       cargo
       git
       curl
       black
-      prettier
       hadolint
       shfmt
       rustfmt
       jq
-      python3
       nodejs
       uv
+      google-java-format
       vimPlugins.nvim-treesitter.withAllGrammars
     ];
     extraConfig = ''
@@ -98,23 +98,24 @@
         vim.opt.shiftwidth = 2
         vim.opt.tabstop = 2
         vim.opt.expandtab = true
-        vim.g.oaded_node_provider = 1
-        vim.g.loaded_python3_provider = 1
 
-        local servers = { "html", "cssls", "nixd", pyright, rust_analyzer, tsserver, lua_ls }
-        vim.lsp.enable(servers)
+        -- Enable node and python providers
+        vim.g.loaded_node_provider = 0
+        vim.g.loaded_python3_provider = 0
 
-        -- Enable specific providers
-        local enable_providers = {
-          "python3_provider",
-          "node_provider",
-          -- and so on
-        }
+        -- LSP configuration using new vim.lsp.config API
+        vim.lsp.config("nixd", {})
+        vim.lsp.config("pyright", {})
+        vim.lsp.config("rust_analyzer", {})
+        vim.lsp.config("ts_ls", {})
+        vim.lsp.config("lua_ls", {})
+        vim.lsp.config("html", {})
+        vim.lsp.config("cssls", {})
+        vim.lsp.config("bashls", {})
+        vim.lsp.config("yamlls", {})
+        vim.lsp.config("jsonls", {})
 
-        for _, plugin in pairs(enable_providers) do
-          vim.g["loaded_" .. plugin] = nil
-          vim.cmd("runtime " .. plugin)
-        end
+        vim.lsp.enable("nixd", "pyright", "rust_analyzer", "ts_ls", "lua_ls", "html", "cssls", "bashls", "yamlls", "jsonls")
 
         -- Custom keymaps
         vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save file" })
@@ -127,16 +128,15 @@
           })
         end, { desc = "Format file or range (in visual mode)" })
 
-        
-        local options = {
-
+        -- Conform formatter configuration
+        require("conform").setup({
           formatters_by_ft = {
             lua = { "stylua" },
             css = { "prettierd" },
             html = { "prettierd" },
             nix = { "alejandra" },
             json = { "jq" },
-            yaml = { "yamlfmt" },
+            yaml = { "prettierd" },
             javascript = { "prettierd" },
             rust = { "rustfmt" },
             python = { "black" },
@@ -145,18 +145,12 @@
             java = { "google-java-format" },
             dockerfile = { "hadolint" },
             markdown = { "prettierd" },
-            rust = { "rustfmt" },
-            
-      },
-
-           format_on_save = {
-             -- These options will be passed to conform.format()
-           timeout_ms = 500,
-           lsp_fallback = true,
           },
-        }
-
-      return options
+          format_on_save = {
+            timeout_ms = 500,
+            lsp_fallback = true,
+          },
+        })
 
     '';
     chadrcConfig = ''
@@ -181,7 +175,7 @@
 
       return M
     '';
-extraPlugins = ''
+    extraPlugins = ''
 return {
 	{ "mason-org/mason.nvim", enabled = false },
 	-- Disable default nvim-cmp
@@ -198,11 +192,7 @@ return {
 		"onsails/lspkind.nvim",
 		enabled = true,
 		config = function()
-			require("lspkind").init({
-				symbol_map = {
-					Supermaven = "",
-				},
-			})
+			require("lspkind").init()
 		end,
 	},
 
@@ -217,8 +207,8 @@ return {
 			{
 				"supermaven-inc/supermaven-nvim",
 				opts = {
-					disable_inline_completion = false, -- enable inline completion to suppress warnings
-					disable_keymaps = false, -- disables built in keymaps for more manual control
+					disable_inline_completion = true, -- disable inline completion to use blink.cmp instead
+					disable_keymaps = false, -- keeps built in keymaps for manual control
 				},
 			},
 			{
@@ -226,7 +216,7 @@ return {
 			},
 		},
 		build = function()
-			require("blink.cmp").build():pwait(1000000)
+			require("blink.cmp").build():pwait(10000)
 		end,
 
 		---@module 'blink.cmp'
@@ -237,7 +227,7 @@ return {
 				documentation = { auto_show = false },
 				menu = {
 					draw = {
-            padding = { 1 },
+            padding =  1,
 						components = {
 							kind_icon = {
 								text = function(ctx)
@@ -311,7 +301,7 @@ return {
     # '';
 
     # Ghostty terminal configuration
-    ".config/ghostty/config".source = /home/jzahm/.config/ghostty/config.ghostty;
+    ".config/ghostty/config".text = builtins.readFile /home/jzahm/.config/ghostty/config.ghostty;
   };
 
   # Home Manager can also manage your environment variables through
@@ -331,8 +321,8 @@ return {
   #  /etc/profiles/per-user/jzahm/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "vim";
-    VISUAL = "vim";
+    EDITOR = "nvim";
+    VISUAL = "nvim";
   };
 
   # Let Home Manager install and manage itself.
