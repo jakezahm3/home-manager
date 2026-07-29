@@ -13,7 +13,6 @@
 
   imports = [ inputs.nix4nvchad.homeManagerModules.default ];
 
-
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -30,6 +29,9 @@
     pkgs.fish
     pkgs.tealdeer
     pkgs.ghostty
+    pkgs.corepack_24
+    pkgs.python3
+    pkgs.wl-clipboard
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -59,7 +61,10 @@
   programs.nvchad = {
     backup = false;
     enable = true;
-    neovim = pkgs.neovim-unwrapped;
+    neovim = pkgs.neovim.override {
+      withNodeJs = true;
+      withPython3 = true;
+    };
     extraPackages = with pkgs; [
       ripgrep
       lua-language-server
@@ -87,12 +92,15 @@
       nodejs
       python314Packages.pynvim
       uv
+      corepack_24
     ];
     extraConfig = ''
        -- Custom vim options
         vim.opt.shiftwidth = 2
         vim.opt.tabstop = 2
         vim.opt.expandtab = true
+        vim.g.oaded_node_provider = 1
+        vim.g.loaded_python3_provider = 1
 
         local servers = { "html", "cssls", "nixd", pyright, rust_analyzer, tsserver, lua_ls }
         vim.lsp.enable(servers)
@@ -174,114 +182,108 @@
       return M
     '';
     extraPlugins = ''
-return {
-	{ "mason-org/mason.nvim", enabled = false },
-	-- Disable default nvim-cmp
-	{ "hrsh7th/nvim-cmp", enabled = false },
-	-- Also disable cmp dependencies that might conflict
-	{ "L3MON4D3/LuaSnip", enabled = false },
-	{ "saadparwaiz1/cmp_luasnip", enabled = false },
-	{ "hrsh7th/cmp-nvim-lua", enabled = false },
-	{ "hrsh7th/cmp-nvim-lsp", enabled = false },
-	{ "hrsh7th/cmp-buffer", enabled = false },
-	{ "hrsh7th/cmp-path", enabled = false },
-	{ "windwp/nvim-autopairs", enabled = true },
-	{
-		"onsails/lspkind.nvim",
-		enabled = true,
-		config = function()
-			require("lspkind").init({ symbol_map = {
-    Supermaven = "",
-  }, 
-  })
-		end,
-	},
+      return {
+      	{ "mason-org/mason.nvim", enabled = false },
+      	-- Disable default nvim-cmp
+      	{ "hrsh7th/nvim-cmp", enabled = false },
+      	-- Also disable cmp dependencies that might conflict
+      	{ "L3MON4D3/LuaSnip", enabled = false },
+      	{ "saadparwaiz1/cmp_luasnip", enabled = false },
+      	{ "hrsh7th/cmp-nvim-lua", enabled = false },
+      	{ "hrsh7th/cmp-nvim-lsp", enabled = false },
+      	{ "hrsh7th/cmp-buffer", enabled = false },
+      	{ "hrsh7th/cmp-path", enabled = false },
+      	{ "windwp/nvim-autopairs", enabled = true },
+      	{
+      		"onsails/lspkind.nvim",
+      		enabled = true,
+      		config = function()
+      			require("lspkind").init({ symbol_map = {
+          Supermaven = "",
+        }, 
+        })
+      		end,
+      	},
 
-	{ "nvim-lua/plenary.nvim" },
---	{
---		"supermaven-inc/supermaven-nvim",
---		config = function()
---			require("supermaven-nvim").setup({})
---		end,
---	},
-	{
-		"saghen/blink.cmp",
-		lazy = false,
-		dependencies = {
-			"saghen/blink.lib",
-			-- optional: provides snippets for the snippet source
-			"rafamadriz/friendly-snippets",
-			{
-				"supermaven-inc/supermaven-nvim",
-				opts = {
-					disable_inline_completion = true, -- disables inline completion for use with cmp
-					disable_keymaps = false, -- disables built in keymaps for more manual control
-				},
-			},
-			{
-				"huijiro/blink-cmp-supermaven",
-			},
-		},
-		build = function()
-			require("blink.cmp").build():pwait(1000000)
-		end,
+      	{ "nvim-lua/plenary.nvim" },
+      	{
+      		"saghen/blink.cmp",
+      		lazy = false,
+      		dependencies = {
+      			"saghen/blink.lib",
+      			-- optional: provides snippets for the snippet source
+      			"rafamadriz/friendly-snippets",
+      			{
+      				"supermaven-inc/supermaven-nvim",
+      				opts = {
+      					disable_inline_completion = false, -- enable inline completion to suppress warnings
+      					disable_keymaps = false, -- disables built in keymaps for more manual control
+      				},
+      			},
+      			{
+      				"huijiro/blink-cmp-supermaven",
+      			},
+      		},
+      		build = function()
+      			require("blink.cmp").build():pwait(1000000)
+      		end,
 
-		---@module 'blink.cmp'
-		---@type blink.cmp.Config
-		opts = {
-			keymap = { preset = "default" },
-			completion = {
-				documentation = { auto_show = false },
-				menu = {
-					draw = {
-						components = {
-							kind_icon = {
-								text = function(ctx)
-									local icon = ctx.kind_icon
-									if vim.tbl_contains({ "Path" }, ctx.source_name) then
-										local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
-										if dev_icon then
-											icon = dev_icon
-										end
-									else
-										icon = require("lspkind").symbol_map[ctx.kind] or ""
-									end
+      		---@module 'blink.cmp'
+      		---@type blink.cmp.Config
+      		opts = {
+      			keymap = { preset = "default" },
+      			completion = {
+      				documentation = { auto_show = false },
+      				menu = {
+      					draw = {
+      						components = {
+      							kind_icon = {
+      								text = function(ctx)
+      									local icon = ctx.kind_icon
+      									if vim.tbl_contains({ "Path" }, ctx.source_name) then
+      										local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+      										if dev_icon then
+      											icon = dev_icon
+      										end
+      									else
+      										icon = require("lspkind").symbol_map[ctx.kind] or ""
+      									end
 
-									return icon .. ctx.icon_gap
-								end,
+      									return icon .. ctx.icon_gap
+      								end,
 
-								-- Optionally, use the highlight groups from nvim-web-devicons
-								-- You can also add the same function for `kind.highlight` if you want to
-								-- keep the highlight groups in sync with the icons.
-								highlight = function(ctx)
-									local hl = ctx.kind_hl
-									if vim.tbl_contains({ "Path" }, ctx.source_name) then
-										local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
-										if dev_icon then
-											hl = dev_hl
-										end
-									end
-									return hl
-								end,
-							},
-						},
-					},
-				},
-			},
-			fuzzy = { implementation = "rust" },
-			sources = {
-				default = { "lsp", "path", "snippets", "buffer", "supermaven" },
-				providers = {
-					supermaven = {
-						name = "supermaven",
-						module = "blink-cmp-supermaven",
-						async = true,
-					},
-				},
-			},
-		},
-	},
-}
+      								-- Optionally, use the highlight groups from nvim-web-devicons
+      								-- You can also add the same function for `kind.highlight` if you want to
+      								-- keep the highlight groups in sync with the icons.
+      								highlight = function(ctx)
+      									local hl = ctx.kind_hl
+      									if vim.tbl_contains({ "Path" }, ctx.source_name) then
+      										local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+      										if dev_icon then
+      											hl = dev_hl
+      										end
+      									end
+      									return hl
+      								end,
+      							},
+      						},
+      					},
+      				},
+      			},
+      			fuzzy = { implementation = "rust" },
+      			sources = {
+      				default = { "lsp", "path", "snippets", "buffer", "supermaven" },
+      				providers = {
+      					supermaven = {
+      						name = "supermaven",
+      						module = "blink-cmp-supermaven",
+      						async = true,
+      					},
+      				},
+      			},
+      		},
+      	},
+      }
     '';
   };
 
