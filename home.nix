@@ -13,6 +13,7 @@
 
   imports = [ inputs.nix4nvchad.homeManagerModules.default ];
 
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -28,6 +29,7 @@
     pkgs.yazi
     pkgs.fish
     pkgs.tealdeer
+    pkgs.ghostty
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -71,12 +73,16 @@
       prettierd
       spectral-language-server
       ast-grep
-      vimPlugins.supermaven-nvim
-      # Dependencies for blink.cmp
       rustc
       cargo
       git
       curl
+      black
+      prettier
+      hadolint
+      shfmt
+      rustfmt
+      jq
     ];
     extraConfig = ''
        -- Custom vim options
@@ -84,13 +90,13 @@
         vim.opt.tabstop = 2
         vim.opt.expandtab = true
 
-        local servers = { "html", "cssls", "nixd" }
+        local servers = { "html", "cssls", "nixd", pyright, rust_analyzer, tsserver, lua_ls }
         vim.lsp.enable(servers)
 
         -- Custom keymaps
         vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save file" })
 
-        vim.keymap.set({ "n", "v" }, "<leader>mp", function()
+        vim.keymap.set({ "n", "v" }, "<leader>F", function()
           require("conform").format({
             lsp_fallback = true,
             async = false,
@@ -106,9 +112,18 @@
             css = { "prettierd" },
             html = { "prettierd" },
             nix = { "alejandra" },
-            json = { "spectral-language-server" },
+            json = { "jq" },
             yaml = { "yamlfmt" },
-          },
+            javascript = { "prettierd" },
+            rust = { "rustfmt" },
+            python = { "black" },
+            typescript = { "prettierd" },
+            sh = { "shfmt" },
+            java = { "google-java-format" },
+            dockerfile = { "hadolint" },
+            markdown = { "prettierd" },
+            rust = { "rustfmt" },
+      },
 
            format_on_save = {
              -- These options will be passed to conform.format()
@@ -143,65 +158,111 @@
       return M
     '';
     extraPlugins = ''
-      return {
-        -- Disable default nvim-cmp
-      	{ "hrsh7th/nvim-cmp", enabled = false },
-      	-- Also disable cmp dependencies that might conflict
-      	{ "L3MON4D3/LuaSnip", enabled = false },
-      	{ "saadparwaiz1/cmp_luasnip", enabled = false },
-      	{ "hrsh7th/cmp-nvim-lua", enabled = false },
-      	{ "hrsh7th/cmp-nvim-lsp", enabled = false },
-      	{ "hrsh7th/cmp-buffer", enabled = false },
-      	{ "hrsh7th/cmp-path", enabled = false },
-      	{ "windwp/nvim-autopairs", enabled = false },
-      	
-      	{ "nvim-lua/plenary.nvim" },
-      	{
-      			"supermaven-inc/supermaven-nvim",
-      			config = function()
-      				require("supermaven-nvim").setup({})
-      			end,
-      	},
-      	{
-      		"saghen/blink.cmp",
-      		dependencies = {
-      			"saghen/blink.lib",
-      			-- optional: provides snippets for the snippet source
-      			"rafamadriz/friendly-snippets",
-      			{
-      				"supermaven-inc/supermaven-nvim",
-      				opts = {
-      					disable_inline_completion = true, -- disables inline completion for use with cmp
-      					disable_keymaps = false, -- disables built in keymaps for more manual control
-      				},
-      			},
-      			{
-      				"huijiro/blink-cmp-supermaven",
-      			},
-      		},
-      		build = function()
-      			require("blink.cmp").build():pwait(1000000)
-      		end,
+return {
+	{ "mason-org/mason.nvim", enabled = false },
+	-- Disable default nvim-cmp
+	{ "hrsh7th/nvim-cmp", enabled = false },
+	-- Also disable cmp dependencies that might conflict
+	{ "L3MON4D3/LuaSnip", enabled = false },
+	{ "saadparwaiz1/cmp_luasnip", enabled = false },
+	{ "hrsh7th/cmp-nvim-lua", enabled = false },
+	{ "hrsh7th/cmp-nvim-lsp", enabled = false },
+	{ "hrsh7th/cmp-buffer", enabled = false },
+	{ "hrsh7th/cmp-path", enabled = false },
+	{ "windwp/nvim-autopairs", enabled = true },
+	{
+		"onsails/lspkind.nvim",
+		enabled = true,
+		config = function()
+			require("lspkind").init()
+		end,
+	},
 
-      		---@module 'blink.cmp'
-      		---@type blink.cmp.Config
-      		opts = {
-      			keymap = { preset = "default" },
-      			completion = { documentation = { auto_show = false } },
-      			fuzzy = { implementation = "rust" },
-      			sources = {
-      				default = { "lsp", "path", "snippets", "buffer", "supermaven" },
-      				providers = {
-      					supermaven = {
-      						name = "supermaven",
-      						module = "blink-cmp-supermaven",
-      						async = true,
-      					},
-      				},
-      			},
-      		},
-      	},
-      }
+	{ "nvim-lua/plenary.nvim" },
+--	{
+--		"supermaven-inc/supermaven-nvim",
+--		config = function()
+--			require("supermaven-nvim").setup({})
+--		end,
+--	},
+	{
+		"saghen/blink.cmp",
+		lazy = false,
+		dependencies = {
+			"saghen/blink.lib",
+			-- optional: provides snippets for the snippet source
+			"rafamadriz/friendly-snippets",
+			{
+				"supermaven-inc/supermaven-nvim",
+				opts = {
+					disable_inline_completion = true, -- disables inline completion for use with cmp
+					disable_keymaps = false, -- disables built in keymaps for more manual control
+				},
+			},
+			{
+				"huijiro/blink-cmp-supermaven",
+			},
+		},
+		build = function()
+			require("blink.cmp").build():pwait(1000000)
+		end,
+
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
+		opts = {
+			keymap = { preset = "default" },
+			completion = {
+				documentation = { auto_show = false },
+				menu = {
+					draw = {
+						components = {
+							kind_icon = {
+								text = function(ctx)
+									local icon = ctx.kind_icon
+									if vim.tbl_contains({ "Path" }, ctx.source_name) then
+										local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+										if dev_icon then
+											icon = dev_icon
+										end
+									else
+										icon = require("lspkind").symbol_map[ctx.kind] or ""
+									end
+
+									return icon .. ctx.icon_gap
+								end,
+
+								-- Optionally, use the highlight groups from nvim-web-devicons
+								-- You can also add the same function for `kind.highlight` if you want to
+								-- keep the highlight groups in sync with the icons.
+								highlight = function(ctx)
+									local hl = ctx.kind_hl
+									if vim.tbl_contains({ "Path" }, ctx.source_name) then
+										local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+										if dev_icon then
+											hl = dev_hl
+										end
+									end
+									return hl
+								end,
+							},
+						},
+					},
+				},
+			},
+			fuzzy = { implementation = "rust" },
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer", "supermaven" },
+				providers = {
+					supermaven = {
+						name = "supermaven",
+						module = "blink-cmp-supermaven",
+						async = true,
+					},
+				},
+			},
+		},
+	},
+}
     '';
   };
 
@@ -218,6 +279,9 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+
+    # Ghostty terminal configuration
+    ".config/ghostty/config".source = /home/jzahm/.config/ghostty/config.ghostty;
   };
 
   # Home Manager can also manage your environment variables through
