@@ -182,7 +182,7 @@
       return M
     '';
 extraPlugins = ''
-      return {return {
+return {
 	{ "mason-org/mason.nvim", enabled = false },
 	-- Disable default nvim-cmp
 	{ "hrsh7th/nvim-cmp", enabled = false },
@@ -237,7 +237,7 @@ extraPlugins = ''
 				documentation = { auto_show = false },
 				menu = {
 					draw = {
-            padding = { 0, 1 },
+            padding = { 1 },
 						components = {
 							kind_icon = {
 								text = function(ctx)
