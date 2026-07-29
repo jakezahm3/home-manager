@@ -83,6 +83,8 @@
       shfmt
       rustfmt
       jq
+      python3
+      nodejs
     ];
     extraConfig = ''
        -- Custom vim options
@@ -92,6 +94,18 @@
 
         local servers = { "html", "cssls", "nixd", pyright, rust_analyzer, tsserver, lua_ls }
         vim.lsp.enable(servers)
+
+        -- Enable specific providers
+        local enable_providers = {
+          "python3_provider",
+          "node_provider",
+          -- and so on
+        }
+
+        for _, plugin in pairs(enable_providers) do
+          vim.g["loaded_" .. plugin] = nil
+          vim.cmd("runtime " .. plugin)
+        end
 
         -- Custom keymaps
         vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save file" })
@@ -174,7 +188,10 @@ return {
 		"onsails/lspkind.nvim",
 		enabled = true,
 		config = function()
-			require("lspkind").init()
+			require("lspkind").init({ symbol_map = {
+    Supermaven = "",
+  }, 
+  })
 		end,
 	},
 
