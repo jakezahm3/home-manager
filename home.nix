@@ -72,7 +72,11 @@
       spectral-language-server
       ast-grep
       vimPlugins.supermaven-nvim
-      vimPlugins.blink-cmp
+      # Dependencies for blink.cmp
+      rustc
+      cargo
+      git
+      curl
     ];
     extraConfig = ''
        -- Custom vim options
@@ -96,8 +100,6 @@
 
         
         local options = {
-
-        { import = "nvchad.blink.lazyspec" },
 
           formatters_by_ft = {
             lua = { "stylua" },
@@ -142,7 +144,17 @@
     '';
     extraPlugins = ''
       return {
-        { "hrsh7th/nvim-cmp", enable = false },
+        -- Disable default nvim-cmp
+      	{ "hrsh7th/nvim-cmp", enabled = false },
+      	-- Also disable cmp dependencies that might conflict
+      	{ "L3MON4D3/LuaSnip", enabled = false },
+      	{ "saadparwaiz1/cmp_luasnip", enabled = false },
+      	{ "hrsh7th/cmp-nvim-lua", enabled = false },
+      	{ "hrsh7th/cmp-nvim-lsp", enabled = false },
+      	{ "hrsh7th/cmp-buffer", enabled = false },
+      	{ "hrsh7th/cmp-path", enabled = false },
+      	{ "windwp/nvim-autopairs", enabled = false },
+      	
       	{ "nvim-lua/plenary.nvim" },
       	{
       			"supermaven-inc/supermaven-nvim",
@@ -170,7 +182,7 @@
       		build = function()
       			require("blink.cmp").build():pwait(1000000)
       		end,
-      
+
       		---@module 'blink.cmp'
       		---@type blink.cmp.Config
       		opts = {
