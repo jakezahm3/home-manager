@@ -85,6 +85,8 @@
       jq
       python3
       nodejs
+      python314Packages.pynvim
+      uv
     ];
     extraConfig = ''
        -- Custom vim options
