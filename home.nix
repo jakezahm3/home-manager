@@ -128,7 +128,7 @@
 
     # Ghostty terminal configuration
     "/home/jzahm/.config/ghostty/config.ghostty" = {
-      source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/ghostty/config.ghostty;
+      source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/home-manager/dot-files/config.ghostty;
       force = true;
     }; # Kitty terminal configuration
     "/home/jzahm/.config/kitty/kitty.conf" = {
