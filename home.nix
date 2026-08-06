@@ -97,6 +97,7 @@
       python3Packages.pynvim
       neovim-node-client
       mcp-server-memory
+      vscode
     ];
     extraConfig = builtins.replaceStrings ["@PYTHON3_HOST_PROG@"] [
       "${pkgs.python3.withPackages (p: [p.pynvim])}/bin/python3"
