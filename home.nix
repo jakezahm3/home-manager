@@ -34,8 +34,8 @@
     pkgs.neovide
     pkgs.eyedropper
     pkgs.mcp-nixos
-    pkgs.python314Packages.pip
-    pkgs.python314Packages.fastmcp
+    pkgs.python313Packages.pip
+    pkgs.python313Packages.fastmcp
     pkgs.cargo
     pkgs.rustc
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
