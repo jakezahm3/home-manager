@@ -496,7 +496,7 @@ theme = Vibrant Ink
 
 # Background color for the window.
 # Specified as either hex (`#RRGGBB` or `RRGGBB`) or a named X11 color.
-#background = #282c34
+background = =#0C0E0F
 
 # Foreground color for the window.
 # Specified as either hex (`#RRGGBB` or `RRGGBB`) or a named X11 color.
