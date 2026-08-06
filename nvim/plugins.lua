@@ -9,6 +9,9 @@ for _, plugin in pairs(enable_providers) do
 	vim.cmd("runtime " .. plugin)
 end
 
+require("base46").load_all_highlights()
+-- onfiguration using new vim.lsp.config API
+
 return {
 	{
 		{
