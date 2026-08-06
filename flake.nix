@@ -17,7 +17,9 @@
     # "track the rolling, most-up-to-date package set" rather than a
     # versioned stable release like `nixos-24.11`.
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-
+    claude-desktop.url = "github:k3d3/claude-desktop-linux-flake";
+    claude-desktop.inputs.nixpkgs.follows = "nixpkgs";
+    claude-desktop.inputs.flake-utils.follows = "flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager";
       # `inputs.nixpkgs.follows = "nixpkgs"` tells the home-manager flake:
@@ -42,62 +44,59 @@
   # returns an attribute set describing what this flake provides — packages,
   # NixOS modules, dev shells, or in this case a `homeConfigurations` output
   # consumed by the `home-manager` CLI.
-  outputs =
-    {
-      # `self` refers to this flake itself (its own outputs/store path) —
-      # not used directly here, but always implicitly available.
-      self,
-      # These names must match keys declared in `inputs` above; Nix binds
-      # each one to that input flake's own `outputs`.
-      nixpkgs,
-      home-manager,
-      # `...` collects any remaining inputs not explicitly named (here,
-      # that's `nix4nvchad`) so the function doesn't error on extra args.
-      ...
-      # `@inputs` captures the *entire* original argument set (including the
-      # ones destructured above) under the name `inputs`. This lets home.nix
-      # get access to `nix4nvchad` via `extraSpecialArgs = { inherit inputs; }`
-      # below, even though `nix4nvchad` wasn't pattern-matched by name here.
-    }@inputs:
-    let
-      # Flakes are evaluated per-system for reproducibility — there's no
-      # implicit "current machine" the way classic Nix expressions have.
-      # This hardcodes the target to 64-bit Linux; on NixOS/multi-arch
-      # setups you'd typically parameterize this instead.
-      system = "x86_64-linux";
-      # `nixpkgs.legacyPackages.<system>` is how flakes expose the full,
-      # familiar `pkgs` set (all packages + `pkgs.lib` etc.) for a given
-      # system — "legacyPackages" because nixpkgs predates the flake output
-      # schema and exposes its huge attribute set under that name rather
-      # than the more restrictive `packages` output.
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      # This is the actual flake output that `home-manager switch --flake
-      # .#jzahm` looks up: `homeConfigurations.<name>`. The `.#jzahm` in
-      # that command is "this flake, output `jzahm`".
-      homeConfigurations."jzahm" = home-manager.lib.homeManagerConfiguration {
-        # Shorthand for `pkgs = pkgs;` — pass the evaluated package set
-        # (for the system chosen above) into the Home Manager configuration.
-        inherit pkgs;
+  outputs = {
+    # `self` refers to this flake itself (its own outputs/store path) —
+    # not used directly here, but always implicitly available.
+    self,
+    # These names must match keys declared in `inputs` above; Nix binds
+    # each one to that input flake's own `outputs`.
+    nixpkgs,
+    home-manager,
+    # `...` collects any remaining inputs not explicitly named (here,
+    # that's `nix4nvchad`) so the function doesn't error on extra args.
+    ...
+    # `@inputs` captures the *entire* original argument set (including the
+    # ones destructured above) under the name `inputs`. This lets home.nix
+    # get access to `nix4nvchad` via `extraSpecialArgs = { inherit inputs; }`
+    # below, even though `nix4nvchad` wasn't pattern-matched by name here.
+  } @ inputs: let
+    # Flakes are evaluated per-system for reproducibility — there's no
+    # implicit "current machine" the way classic Nix expressions have.
+    # This hardcodes the target to 64-bit Linux; on NixOS/multi-arch
+    # setups you'd typically parameterize this instead.
+    system = "x86_64-linux";
+    # `nixpkgs.legacyPackages.<system>` is how flakes expose the full,
+    # familiar `pkgs` set (all packages + `pkgs.lib` etc.) for a given
+    # system — "legacyPackages" because nixpkgs predates the flake output
+    # schema and exposes its huge attribute set under that name rather
+    # than the more restrictive `packages` output.
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
+    # This is the actual flake output that `home-manager switch --flake
+    # .#jzahm` looks up: `homeConfigurations.<name>`. The `.#jzahm` in
+    # that command is "this flake, output `jzahm`".
+    homeConfigurations."jzahm" = home-manager.lib.homeManagerConfiguration {
+      # Shorthand for `pkgs = pkgs;` — pass the evaluated package set
+      # (for the system chosen above) into the Home Manager configuration.
+      inherit pkgs;
 
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        #
-        # `extraSpecialArgs` injects extra arguments into every module's
-        # function signature (alongside the standard `config`, `lib`,
-        # `pkgs`, etc.). Here it forwards the whole `inputs` set — that's
-        # how home.nix can reach `inputs.nix4nvchad.homeManagerModules.default`
-        # to pull in the NvChad module.
-        extraSpecialArgs = { inherit inputs; };
-        # `modules` is the list of Home Manager modules to evaluate together,
-        # analogous to NixOS's `imports`. Right now it's just the one file —
-        # this repo deliberately keeps everything in a single module rather
-        # than splitting into multiple imported `.nix` files.
-        modules = [ ./home.nix ];
+      # Specify your home configuration modules here, for example,
+      # the path to your home.nix.
+      #
+      # `extraSpecialArgs` injects extra arguments into every module's
+      # function signature (alongside the standard `config`, `lib`,
+      # `pkgs`, etc.). Here it forwards the whole `inputs` set — that's
+      # how home.nix can reach `inputs.nix4nvchad.homeManagerModules.default`
+      # to pull in the NvChad module.
+      extraSpecialArgs = {inherit inputs;};
+      # `modules` is the list of Home Manager modules to evaluate together,
+      # analogous to NixOS's `imports`. Right now it's just the one file —
+      # this repo deliberately keeps everything in a single module rather
+      # than splitting into multiple imported `.nix` files.
+      modules = [./home.nix];
 
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
-      };
+      # Optionally use extraSpecialArgs
+      # to pass through arguments to home.nix
     };
+  };
 }
