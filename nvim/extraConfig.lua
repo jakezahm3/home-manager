@@ -96,6 +96,8 @@ local servers = {
 	bashls = {},
 	yamlls = {},
 	jsonls = {},
+	fish_lsp = {},
+	lua_ls = {},
 }
 
 for name, opts in pairs(servers) do
@@ -164,6 +166,7 @@ require("conform").setup({
 		sh = { "shfmt" },
 		java = { "google-java-format" },
 		markdown = { "prettierd" },
+		fish = { "fish_indent" },
 	},
 	format_on_save = {
 		timeout_ms = 500,

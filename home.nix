@@ -102,8 +102,7 @@
       python3Packages.pynvim
       neovim-node-client
       mcp-server-memory
-      vscode
-      vscode-extensions.anthropic.claude-code
+      fish-lsp
     ];
     extraConfig = builtins.replaceStrings ["@PYTHON3_HOST_PROG@"] [
       "${pkgs.python3.withPackages (p: [p.pynvim])}/bin/python3"
