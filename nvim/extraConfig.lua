@@ -3,6 +3,11 @@ vim.g.python3_host_prog = "@PYTHON3_HOST_PROG@"
 vim.g.node_host_prog = vim.fn.exepath("neovim-node-host")
 vim.g.loaded_python3_provider = nil
 vim.g.loaded_node_provider = nil
+-- Disable Claude's extended thinking for any `claude` CLI subprocess Neovim
+-- spawns (claude-complete.nvim's manual <C-g> lane in particular): thinking-only
+-- turns emit no text content block, which claude-complete.nvim silently drops
+-- (no ghost text, no error) instead of falling back to the tool_use/thinking output.
+vim.env.MAX_THINKING_TOKENS = "0"
 -- Custom vim options
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
