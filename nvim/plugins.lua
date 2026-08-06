@@ -10,6 +10,7 @@ for _, plugin in pairs(enable_providers) do
 end
 
 return {
+	{ "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
 	{
 		"lervag/vimtex",
 		lazy = false, -- we don't want to lazy load VimTeX
