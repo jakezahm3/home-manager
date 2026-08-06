@@ -17,6 +17,4 @@ M.ui = {
 	},
 }
 
--- force nix rebuild trigger
-
 return M

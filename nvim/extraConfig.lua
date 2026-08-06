@@ -11,6 +11,8 @@ vim.opt.expandtab = true
 vim.api.nvim_set_hl(0, "BlinkCmpKindSupermaven", { fg = "#7aa2f7", bold = true })
 vim.api.nvim_set_hl(0, "BlinkCmpLabelSupermaven", { fg = "#bb9af7", italic = true })
 
+require("base46").load_all_highlights()
+
 -- LSP configuration using new vim.lsp.config API
 vim.lsp.config("nixd", {})
 vim.lsp.config("pyright", {})
