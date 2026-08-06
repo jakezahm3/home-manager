@@ -62,6 +62,7 @@
   programs.nvchad = {
     backup = false;
     enable = true;
+    hm-activation = true;
     neovim = pkgs.wrapNeovim pkgs.neovim-unwrapped {
       withNodeJs = true;
       withPython3 = true;

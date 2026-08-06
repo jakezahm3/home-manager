@@ -10,7 +10,6 @@ for _, plugin in pairs(enable_providers) do
 end
 
 return {
-	{ "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
 	{
 		{
 			"rachartier/tiny-inline-diagnostic.nvim",
