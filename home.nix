@@ -35,6 +35,7 @@
     pkgs.eyedropper
     pkgs.mcp-nixos
     pkgs.python314Packages.pip
+    pkgs.python314Packages.fastmcp
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
