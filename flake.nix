@@ -69,7 +69,10 @@
     # system — "legacyPackages" because nixpkgs predates the flake output
     # schema and exposes its huge attribute set under that name rather
     # than the more restrictive `packages` output.
-    pkgs = nixpkgs.legacyPackages.${system};
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
   in {
     # This is the actual flake output that `home-manager switch --flake
     # .#jzahm` looks up: `homeConfigurations.<name>`. The `.#jzahm` in
