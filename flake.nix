@@ -21,8 +21,9 @@
     # references `nodePackages.asar`, which our rolling nixpkgs-unstable
     # has since removed. Let it use its own pinned, compatible nixpkgs.
     claude-desktop.url = "github:k3d3/claude-desktop-linux-flake";
+
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-26.05";
       # `inputs.nixpkgs.follows = "nixpkgs"` tells the home-manager flake:
       # "don't fetch your own copy of nixpkgs — reuse the exact `nixpkgs`
       # input I (this flake) already resolved above." Without `follows`,
