@@ -235,7 +235,7 @@ return {
 				cancel = "<C-c>",
 			},
 			context = {
-				inline_full_under = 500, -- send the whole file when shorter than this
+				inline_full_under = 300, -- send the whole file when shorter than this
 				above = 150, -- otherwise lines kept above the cursor
 				below = 50, -- and below
 				imports = 20, -- leading lines always included
@@ -257,7 +257,7 @@ return {
 			},
 			system_prompt = nil, -- string to replace the built-in prompt (manual lane)
 			highlights = {
-				ghost = { link = "Comment" }, -- or { fg = "#b4befe", italic = true }
+				ghost = { fg = "#b4befe", italic = true },
 			},
 			ui = { rich = true }, -- rich snacks panel when available, else cmdline spinner
 		},
