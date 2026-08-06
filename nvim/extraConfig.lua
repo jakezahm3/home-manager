@@ -125,6 +125,8 @@ vim.api.nvim_create_autocmd("BufDelete", {
 -- Custom keymaps
 vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save file" })
 
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
 vim.keymap.set({ "n", "v" }, "<leader>F", function()
 	require("conform").format({
 		lsp_fallback = true,

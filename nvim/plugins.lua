@@ -11,8 +11,6 @@ end
 
 require("base46").load_all_highlights()
 -- onfiguration using new vim.lsp.config API
-require("oil").setup()
-
 return {
 	{
 		"stevearc/oil.nvim",
