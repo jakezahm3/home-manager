@@ -136,7 +136,7 @@ vim.keymap.set({ "n", "v" }, "<leader>F", function()
 end, { desc = "Format file or range (in visual mode)" })
 
 local bufnr = vim.api.nvim_get_current_buf()
-vim.keymap.set("n", "<leader>a", function()
+vim.keymap.set("n", "<leader>A", function()
 	vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
 	-- or vim.lsp.buf.codeAction() if you don't want grouping.
 end, { silent = true, buffer = bufnr })
