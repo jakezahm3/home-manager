@@ -213,24 +213,64 @@ return {
 	},
 	{ "nvim-lua/plenary.nvim" },
 	{
+		"ramanshrivastava/claude-complete.nvim",
+		event = "InsertEnter",
+		opts = {
+			command = "claude", -- CLI to invoke
+			model = "sonnet", -- passed as --model
+			cli_args = { -- extra flags (--model is appended automatically)
+				"-p",
+				"--max-turns",
+				"100",
+				"--output-format",
+				"stream-json",
+				"--verbose",
+				"--permission-mode",
+				"bypassPermissions",
+			},
+			timeout_ms = 60000,
+			keymaps = { -- set any to false to leave it unbound
+				trigger = "<C-g>",
+				accept = "<Tab>",
+				cancel = "<C-c>",
+			},
+			context = {
+				inline_full_under = 500, -- send the whole file when shorter than this
+				above = 150, -- otherwise lines kept above the cursor
+				below = 50, -- and below
+				imports = 20, -- leading lines always included
+				diagnostics = 5, -- nearest LSP diagnostics to include
+				tree = 15, -- top-level project-tree entries
+			},
+			auto = { -- the automatic, Cursor-style lane (opt-in)
+				enabled = false, -- off by default
+				model = "claude-haiku-4-5", -- a cheap, fast model is strongly recommended
+				debounce_ms = 350, -- idle time before a completion is requested
+				idle_shutdown_min = 10, -- stop the worker after this many idle minutes
+				max_filesize_kb = 500, -- skip buffers larger than this
+				max_lines = 10000, -- skip buffers with more lines than this
+				disabled_filetypes = { "TelescopePrompt", "snacks_picker_input", "oil" },
+				show_with_menu = true, -- show ghost text even when the completion menu is open
+				hint = { enabled = true, text = nil }, -- source badge; text=nil derives from the model
+				blink = { enabled = false }, -- advisory flag for the blink.cmp source (see below)
+				worker_env = { MAX_THINKING_TOKENS = "0" }, -- worker-only env; {} re-enables thinking
+			},
+			system_prompt = nil, -- string to replace the built-in prompt (manual lane)
+			highlights = {
+				ghost = { link = "Comment" }, -- or { fg = "#b4befe", italic = true }
+			},
+			ui = { rich = true }, -- rich snacks panel when available, else cmdline spinner
+		},
+	},
+	{
 		"saghen/blink.cmp",
 		lazy = false,
 		dependencies = {
 			"saghen/blink.lib",
 			-- optional: provides snippets for the snippet source
 			"rafamadriz/friendly-snippets",
-			{
-				"supermaven-inc/supermaven-nvim",
-				opts = {
-					disable_inline_completion = true, -- disable inline completion to use blink.cmp instead
-					disable_keymaps = false, -- keeps built in keymaps for manual control
-					log_level = "off",
-				},
-			},
-			{
-				"huijiro/blink-cmp-supermaven",
-			},
 		},
+
 		build = function()
 			require("blink.cmp").build():pwait(10000)
 		end,
@@ -244,75 +284,13 @@ return {
 				menu = {
 					draw = {
 						padding = 1,
-						components = {
-							kind_icon = {
-								text = function(ctx)
-									local icon = ctx.kind_icon
-									if vim.tbl_contains({ "Path" }, ctx.source_name) then
-										local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
-										if dev_icon then
-											icon = dev_icon
-										end
-									elseif ctx.source_name == "supermaven" then
-										icon = "🤖"
-									else
-										icon = require("lspkind").symbol_map[ctx.kind] or ""
-									end
-
-									return icon .. ctx.icon_gap
-								end,
-
-								-- Optionally, use the highlight groups from nvim-web-devicons
-								-- You can also add the same function for `kind.highlight` if you want to
-								-- keep the highlight groups in sync with the icons.
-								highlight = function(ctx)
-									local hl = ctx.kind_hl
-									if vim.tbl_contains({ "Path" }, ctx.source_name) then
-										local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
-										if dev_icon then
-											hl = dev_hl
-										end
-									elseif ctx.source_name == "supermaven" then
-										hl = "BlinkCmpKindSupermaven"
-									end
-									return hl
-								end,
-							},
-							label = {
-								text = function(ctx)
-									local label = ctx.label
-									if ctx.source_name == "supermaven" then
-										return "AI: " .. label
-									end
-									return label
-								end,
-								highlight = function(ctx)
-									if ctx.source_name == "supermaven" then
-										return "BlinkCmpLabelSupermaven"
-									end
-									return ctx.label_hl
-								end,
-							},
-						},
+						components = {},
 					},
 				},
 			},
 			fuzzy = { implementation = "rust" },
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer", "supermaven" },
-				providers = {
-					supermaven = {
-						name = "supermaven",
-						module = "blink-cmp-supermaven",
-						async = true,
-						transform_items = function(ctx, items)
-							for _, item in ipairs(items) do
-								item.source_name = "supermaven"
-							end
-							return items
-						end,
-					},
-				},
+				default = { "lsp", "path", "snippets", "buffer" },
 			},
 		},
 	},
