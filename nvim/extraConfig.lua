@@ -80,7 +80,7 @@ local servers = {
 	jsonls = {},
 	fish_lsp = {},
 	lua_ls = {},
-	texlab = {},
+	harper_ls = {},
 }
 
 for name, opts in pairs(servers) do
@@ -152,7 +152,7 @@ require("conform").setup({
 		java = { "google-java-format" },
 		markdown = { "prettierd" },
 		fish = { "fish_indent" },
-		latex = { "tex-fmt" },
+		latex = { "latex-fmt" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
