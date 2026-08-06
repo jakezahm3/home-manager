@@ -71,7 +71,7 @@ require("dropbar").setup({
 local servers = {
 	nixd = {},
 	pyright = {},
-	rust_analyzer = {},
+	bacon_ls = {},
 	ts_ls = {},
 	html = {},
 	cssls = {},
@@ -145,7 +145,7 @@ require("conform").setup({
 		json = { "jq" },
 		yaml = { "prettierd" },
 		javascript = { "prettierd" },
-		rust = { "rustfmt" },
+		rust = { "ast-grep" },
 		python = { "black" },
 		typescript = { "prettierd" },
 		sh = { "shfmt" },
