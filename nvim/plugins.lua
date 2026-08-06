@@ -57,6 +57,8 @@ return {
 			vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
 			vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
 			vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
+			vim.keymap.set("n", "[]", dropbar_api.select_prev_context, { desc = "Select previous context" })
+			vim.keymap.set("n", "]]", dropbar_api.select_next_context_end, { desc = "Select next context (til end)" })
 		end,
 	},
 	{
@@ -243,7 +245,7 @@ return {
 				tree = 15, -- top-level project-tree entries
 			},
 			auto = { -- the automatic, Cursor-style lane (opt-in)
-				enabled = false, -- off by default
+				enabled = true, -- off by default
 				model = "claude-haiku-4-5", -- a cheap, fast model is strongly recommended
 				debounce_ms = 350, -- idle time before a completion is requested
 				idle_shutdown_min = 10, -- stop the worker after this many idle minutes
