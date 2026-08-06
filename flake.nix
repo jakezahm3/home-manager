@@ -17,8 +17,10 @@
     # "track the rolling, most-up-to-date package set" rather than a
     # versioned stable release like `nixos-24.11`.
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    # Not following our nixpkgs here: this flake's own claude-desktop.nix
+    # references `nodePackages.asar`, which our rolling nixpkgs-unstable
+    # has since removed. Let it use its own pinned, compatible nixpkgs.
     claude-desktop.url = "github:k3d3/claude-desktop-linux-flake";
-    claude-desktop.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = {
       url = "github:nix-community/home-manager";
       # `inputs.nixpkgs.follows = "nixpkgs"` tells the home-manager flake:
