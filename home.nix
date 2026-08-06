@@ -33,6 +33,7 @@
     pkgs.kitty
     pkgs.neovide
     pkgs.eyedropper
+    pkgs.mcp-nixos
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
