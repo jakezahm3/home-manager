@@ -29,6 +29,7 @@
     pkgs.corepack_24
     pkgs.python3
     pkgs.wl-clipboard
+    pkgs.claude-code
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
