@@ -161,7 +161,7 @@ return {
 	{ "hrsh7th/cmp-nvim-lsp", enabled = false },
 	{ "hrsh7th/cmp-buffer", enabled = false },
 	{ "hrsh7th/cmp-path", enabled = false },
-	{ "windwp/nvim-autopairs", enabled = true, lazy = false },
+	{ "windwp/nvim-autopairs", enabled = true },
 	{ "nvim-mini/mini.nvim", version = false, enabled = true },
 	{
 		"onsails/lspkind.nvim",

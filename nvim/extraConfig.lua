@@ -1,4 +1,4 @@
--- Provider configuration
+-- Provider configurat/lua_lsion
 vim.g.python3_host_prog = "@PYTHON3_HOST_PROG@"
 vim.g.node_host_prog = vim.fn.exepath("neovim-node-host")
 vim.g.loaded_python3_provider = nil
@@ -86,18 +86,23 @@ require("dropbar").setup({
 	},
 })
 
-vim.lsp.config("nixd", {})
-vim.lsp.config("pyright", {})
-vim.lsp.config("rust_analyzer", {})
-vim.lsp.config("ts_ls", {})
-vim.lsp.config("lua_ls", {})
-vim.lsp.config("html", {})
-vim.lsp.config("cssls", {})
-vim.lsp.config("bashls", {})
-vim.lsp.config("yamlls", {})
-vim.lsp.config("jsonls", {})
+local servers = {
+	nixd = {},
+	pyright = {},
+	rust_analyzer = {},
+	ts_ls = {},
+	lua_ls = {},
+	html = {},
+	cssls = {},
+	bash_ls = {},
+	yamlls = {},
+	jsonls = {},
+}
 
-vim.lsp.enable("nixd", "pyright", "rust_analyzer", "ts_ls", "lua_ls", "html", "cssls", "bashls", "yamlls", "jsonls")
+for name, opts in pairs(servers) do
+	vim.lsp.config(name, opts)
+	vim.lsp.enable(name)
+end
 
 local autocmd = vim.api.nvim_create_autocmd
 
