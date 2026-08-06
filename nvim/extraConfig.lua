@@ -91,7 +91,6 @@ local servers = {
 	pyright = {},
 	rust_analyzer = {},
 	ts_ls = {},
-	lua_ls = {},
 	html = {},
 	cssls = {},
 	bash_ls = {},
