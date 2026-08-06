@@ -34,8 +34,8 @@
     pkgs.neovide
     pkgs.eyedropper
     pkgs.mcp-nixos
-    pkgs.python313Packages.pip
-    pkgs.python313Packages.fastmcp
+    pkgs.python314Packages.pip
+    pkgs.python314Packages.fastmcp
     pkgs.rustup
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
     # # Adds the 'hello' command to your environment. It prints a friendly
