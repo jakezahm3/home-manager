@@ -32,6 +32,7 @@
     pkgs.claude-code
     pkgs.kitty
     pkgs.neovide
+    pkgs.eyedropper
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -118,7 +119,9 @@
     # '';
 
     # Ghostty terminal configuration
-    ".config/ghostty/config".text = builtins.readFile /home/jzahm/.config/ghostty/config.ghostty;
+    ".config/ghostty/config".source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/ghostty/config.ghostty;
+    # Kitty terminal configuration
+    ".config/kitty/kitty.conf".source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/kitty/kitty.conf.kitty;
   };
 
   # Home Manager can also manage your environment variables through
