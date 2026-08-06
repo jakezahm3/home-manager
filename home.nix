@@ -122,6 +122,64 @@
     extraPlugins = builtins.readFile ./nvim/plugins.lua;
   };
 
+  # nixpkgs' cargo ships a vendor fish completion that shells out to
+  # `CARGO_COMPLETE=fish cargo -- ...` (cargo's built-in dynamic completion
+  # engine), which currently panics on invocation (cli.rs:747, NotFound) and
+  # dumps a Rust backtrace to the terminal on every Tab press. Fish loads
+  # completions from ~/.config/fish/completions before any vendor_completions.d
+  # dir and stops at the first match, so this static list shadows the broken
+  # one.
+  xdg.configFile."fish/completions/cargo.fish".text = ''
+    set -l cargo_subcommands \
+      build\t'Compile the current package' \
+      check\t'Analyze the current package and report errors' \
+      clean\t'Remove the target directory' \
+      doc\t'Build this package\'s and its dependencies\' documentation' \
+      new\t'Create a new cargo package' \
+      init\t'Create a new cargo package in an existing directory' \
+      add\t'Add dependencies to a manifest file' \
+      remove\t'Remove dependencies from a manifest file' \
+      run\t'Run a binary or example of the local package' \
+      test\t'Run the tests' \
+      bench\t'Run the benchmarks' \
+      update\t'Update dependencies listed in Cargo.lock' \
+      search\t'Search registry for crates' \
+      publish\t'Package and upload this package to the registry' \
+      install\t'Install a Rust binary' \
+      uninstall\t'Uninstall a Rust binary' \
+      tree\t'Display a tree visualization of a dependency graph' \
+      vendor\t'Vendor all dependencies locally' \
+      fmt\t'Format Rust code' \
+      clippy\t'Run clippy lints' \
+      fix\t'Automatically fix lint warnings' \
+      metadata\t'Output the resolved dependencies of a package' \
+      generate-lockfile\t'Generate Cargo.lock' \
+      locate-project\t'Print a JSON representation of a Cargo.toml location' \
+      login\t'Log in to a registry' \
+      logout\t'Remove an API token from the registry locally' \
+      owner\t'Manage the owners of a crate on the registry' \
+      package\t'Assemble the local package into a distributable tarball' \
+      pkgid\t'Print a fully qualified package specification' \
+      report\t'Generate and display various kinds of reports' \
+      rustc\t'Compile the current package, and pass extra options to the compiler' \
+      rustdoc\t'Build a package'"'"'s documentation, using specified custom flags' \
+      verify-project\t'Check correctness of crate manifest' \
+      yank\t'Remove a pushed crate from the index'
+
+    complete -c cargo -f
+    complete -c cargo -n __fish_use_subcommand -a "$cargo_subcommands"
+
+    complete -c cargo -l release -d 'Build artifacts in release mode'
+    complete -c cargo -l verbose -s v -d 'Use verbose output'
+    complete -c cargo -l quiet -s q -d 'Do not print cargo log messages'
+    complete -c cargo -l offline -d 'Run without accessing the network'
+    complete -c cargo -l locked -d 'Assert that Cargo.lock will remain unchanged'
+    complete -c cargo -l frozen -d 'Equivalent to --locked and --offline'
+    complete -c cargo -l help -s h -d 'Print help'
+    complete -c cargo -l version -s V -d 'Print version info and exit'
+    complete -c cargo -l list -d 'List installed commands'
+  '';
+
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
