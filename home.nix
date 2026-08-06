@@ -121,7 +121,10 @@
     # Ghostty terminal configuration
     ".config/ghostty/config".source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/ghostty/config.ghostty;
     # Kitty terminal configuration
-    ".config/kitty/kitty.conf".source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/kitty/kitty.conf.kitty;
+    ".config/kitty/kitty.conf" = {
+      source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/kitty/kitty.conf.kitty;
+      force = true;
+    };
   };
 
   # Home Manager can also manage your environment variables through
