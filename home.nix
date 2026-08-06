@@ -107,7 +107,7 @@
       neovim-node-client
       mcp-server-memory
       fish-lsp
-      harper-ls
+      texlab
       latex-fmt
     ];
     extraConfig = builtins.replaceStrings ["@PYTHON3_HOST_PROG@"] [
