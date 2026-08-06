@@ -34,7 +34,7 @@
     pkgs.neovide
     pkgs.eyedropper
     pkgs.mcp-nixos
-    pkgs.pip
+    pkgs.python314Packages.pip
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -97,7 +97,6 @@
       uv
       google-java-format
       python3
-      python314Packages.pip
       python3Packages.pynvim
       neovim-node-client
       mcp-server-memory
