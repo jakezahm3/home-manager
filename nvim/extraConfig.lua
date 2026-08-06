@@ -71,7 +71,10 @@ require("dropbar").setup({
 local servers = {
 	nixd = {},
 	pyright = {},
-	bacon_ls = {},
+	bacon_ls = { filetypes = { "rust" } },
+	rust_analyzer = {
+		filetypes = {},
+	},
 	ts_ls = {},
 	html = {},
 	cssls = {},
