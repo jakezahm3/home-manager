@@ -127,10 +127,12 @@
     # '';
 
     # Ghostty terminal configuration
-    ".config/ghostty/config".source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/ghostty/config.ghostty;
-    # Kitty terminal configuration
-    ".config/kitty/kitty.conf" = {
-      source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/kitty/kitty.conf.kitty;
+    "/home/jzahm/.config/ghostty/config.ghostty" = {
+      source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/ghostty/config.ghostty;
+      force = true;
+    }; # Kitty terminal configuration
+    "/home/jzahm/.config/kitty/kitty.conf" = {
+      source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/home-manager/dot-files/kitty.conf;
       force = true;
     };
     ".mcp.json" = {
