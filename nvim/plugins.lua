@@ -151,7 +151,7 @@ return {
 		},
 	},
 
-	{ "mason-org/mason.nvim", enabled = false },
+	{ "mason-org/mason.nvim", enabled = true },
 	-- Disable default nvim-cmp
 	{ "hrsh7th/nvim-cmp", enabled = false },
 	-- Also disable cmp dependencies that might conflict
