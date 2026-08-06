@@ -16,24 +16,6 @@ vim.opt.expandtab = true
 vim.api.nvim_set_hl(0, "BlinkCmpKindSupermaven", { fg = "#7aa2f7", bold = true })
 vim.api.nvim_set_hl(0, "BlinkCmpLabelSupermaven", { fg = "#bb9af7", italic = true })
 
-local dropbar = require("dropbar")
-local sources = require("dropbar.sources")
-local utils = require("dropbar.utils")
-
-vim.api.nvim_set_hl(0, "DropBarFileName", { fg = "#FFFFFF", italic = true })
-
-local custom_path = {
-	get_symbols = function(buff, win, cursor)
-		local symbols = sources.path.get_symbols(buff, win, cursor)
-		symbols[#symbols].name_hl = "DropBarFileName"
-		if vim.bo[buff].modified then
-			symbols[#symbols].name = symbols[#symbols].name .. " [+]"
-			symbols[#symbols].name_hl = "DiffAdded"
-		end
-		return symbols
-	end,
-}
-
 require("dropbar").setup({
 	bar = {
 		enable = function(buf, win, _)
@@ -98,6 +80,7 @@ local servers = {
 	jsonls = {},
 	fish_lsp = {},
 	lua_ls = {},
+	texlab = {},
 }
 
 for name, opts in pairs(servers) do
@@ -167,6 +150,7 @@ require("conform").setup({
 		java = { "google-java-format" },
 		markdown = { "prettierd" },
 		fish = { "fish_indent" },
+		latex = { "tex-fmt" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
