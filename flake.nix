@@ -17,15 +17,8 @@
     # "track the rolling, most-up-to-date package set" rather than a
     # versioned stable release like `nixos-24.11`.
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-
-    claude-desktop = {
-      url = "github:k3d3/claude-desktop-linux-flake";
-    };
-    inputs = {
-      nixpkgs.follows = "nixpkgs";
-      flake-utils.follows = "flake-utils";
-    };
-
+    claude-desktop.url = "github:k3d3/claude-desktop-linux-flake";
+    claude-desktop.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = {
       url = "github:nix-community/home-manager";
       # `inputs.nixpkgs.follows = "nixpkgs"` tells the home-manager flake:
