@@ -30,6 +30,8 @@
     pkgs.python3
     pkgs.wl-clipboard
     pkgs.claude-code
+    pkgs.kitty
+    pkgs.neovide
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
