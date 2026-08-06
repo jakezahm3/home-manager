@@ -132,7 +132,7 @@
       source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/kitty/kitty.conf.kitty;
       force = true;
     };
-    ".claude/mcp.json" = {
+    ".mcp.json" = {
       source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/home-manager/mcp/mcp-nixos.json;
       force = true;
     };
