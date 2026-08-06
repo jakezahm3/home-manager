@@ -12,6 +12,18 @@ end
 return {
 	{ "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
 	{
+		{
+			"rachartier/tiny-inline-diagnostic.nvim",
+			event = "VeryLazy",
+			priority = 1000,
+			opts = {},
+		},
+		{
+			"neovim/nvim-lspconfig",
+			opts = { diagnostics = { virtual_text = false } },
+		},
+	},
+	{
 		"lervag/vimtex",
 		lazy = false, -- we don't want to lazy load VimTeX
 		-- tag = "v2.15", -- uncomment to pin to a specific release
