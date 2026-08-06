@@ -93,7 +93,7 @@ local servers = {
 	ts_ls = {},
 	html = {},
 	cssls = {},
-	bash_ls = {},
+	bashls = {},
 	yamlls = {},
 	jsonls = {},
 }
