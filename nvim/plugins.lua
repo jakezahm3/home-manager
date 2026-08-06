@@ -87,6 +87,7 @@ return {
 	},
 	{
 		"HiPhish/rainbow-delimiters.nvim",
+		lazy = false,
 		dependencies = "nvim-treesitter/nvim-treesitter",
 		config = function()
 			-- See configuration section below
