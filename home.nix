@@ -60,6 +60,10 @@
     interactiveShellInit = ''
       set -gx EDITOR "nvim"
       set -gx VISUAL "nvim"
+
+      if test -f /home/jzahm/.config/home-manager/mcp/.secrets
+        source /home/jzahm/.config/home-manager/mcp/.secrets
+      end
     '';
   };
 
