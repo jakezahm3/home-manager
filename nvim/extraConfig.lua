@@ -147,7 +147,7 @@ vim.api.nvim_create_user_command("LspFormat", function(args)
 	vim.lsp.buf.format({ async = false, timeout_ms = 500, range = range })
 end, { range = true, desc = "Format file or range with the LSP formatter" })
 
-vim.keymap.set({ "n", "v" }, "<leader>lf", "<cmd>LspFormat<CR>", { desc = "Format file or range with LSP" })
+vim.keymap.set({ "n", "v" }, "<leader>lQ", "<cmd>LspFormat<CR>", { desc = "Format file or range with LSP" })
 
 local bufnr = vim.api.nvim_get_current_buf()
 vim.keymap.set("n", "<leader>A", function()
