@@ -23,8 +23,6 @@ vim.lsp.config("bashls", {})
 vim.lsp.config("yamlls", {})
 vim.lsp.config("jsonls", {})
 
-vim.cmd [[colorscheme eldritch]]
-
 vim.lsp.enable("nixd", "pyright", "rust_analyzer", "ts_ls", "lua_ls", "html", "cssls", "bashls", "yamlls", "jsonls")
 
 local autocmd = vim.api.nvim_create_autocmd
