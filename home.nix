@@ -47,13 +47,17 @@
     pkgs.mcp-server-filesystem
     pkgs.mcp-language-server
     pkgs.mcp-server-time
+    pkgs.lua-language-server
     pkgs.context7-mcp
     pkgs.mcp-proxy
     pkgs.open-websearch
     pkgs.pdf-mcp
     pkgs.playwright-mcp
     pkgs.terraform-mcp-server
+    pkgs.mcp-server-memory
+    pkgs.nixd
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
+
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -122,7 +126,6 @@
       python3
       python3Packages.pynvim
       neovim-node-client
-      mcp-server-memory
       fish-lsp
       texlab
       tex-fmt
