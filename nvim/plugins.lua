@@ -233,7 +233,7 @@ return {
 				cancel = "<C-c>",
 			},
 			context = {
-				inline_full_under = 300, -- send the whole file when shorter than this
+				inline_full_under = 500, -- send the whole file when shorter than this
 				above = 150, -- otherwise lines kept above the cursor
 				below = 50, -- and below
 				imports = 20, -- leading lines always included
@@ -241,7 +241,7 @@ return {
 				tree = 15, -- top-level project-tree entries
 			},
 			auto = { -- the automatic, Cursor-style lane (opt-in)
-				enabled = true, -- off by default
+				enabled = false, -- off by default
 				model = "claude-haiku-4-5", -- a cheap, fast model is strongly recommended
 				debounce_ms = 350, -- idle time before a completion is requested
 				idle_shutdown_min = 10, -- stop the worker after this many idle minutes
