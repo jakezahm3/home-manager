@@ -56,6 +56,7 @@
     pkgs.terraform-mcp-server
     (pkgs.lib.lowPrio pkgs.mcp-server-memory)
     pkgs.nixd
+    pkgs.python314Packages.uv
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
 
     # # Adds the 'hello' command to your environment. It prints a friendly
