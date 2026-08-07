@@ -32,6 +32,59 @@
         "-y",
         "@upstash/context7-mcp"
       ]
+    },
+    "context7-local": {
+      "command": "context7-mcp",
+      "args": []
+    },
+    "sequential-thinking": {
+      "command": "mcp-server-sequential-thinking",
+      "args": []
+    },
+    "fetch": {
+      "command": "mcp-server-fetch",
+      "args": []
+    },
+    "filesystem": {
+      "command": "mcp-server-filesystem",
+      "args": [
+        "/home/jzahm"
+      ]
+    },
+    "language-server": {
+      "command": "mcp-language-server",
+      "args": [
+        "-workspace",
+        "/home/jzahm/.config/home-manager",
+        "-lsp",
+        "nixd"
+      ]
+    },
+    "time": {
+      "command": "mcp-server-time",
+      "args": []
+    },
+    "memory": {
+      "command": "mcp-server-memory",
+      "args": []
+    },
+    "open-websearch": {
+      "command": "open-websearch",
+      "args": []
+    },
+    "pdf-mcp": {
+      "command": "pdf-mcp",
+      "args": []
+    },
+    "playwright": {
+      "command": "playwright-mcp",
+      "args": []
+    },
+    "terraform": {
+      "command": "terraform-mcp-server",
+      "args": [
+        "stdio"
+      ]
     }
   }
 }
