@@ -54,7 +54,7 @@
     pkgs.pdf-mcp
     pkgs.playwright-mcp
     pkgs.terraform-mcp-server
-    pkgs.mcp-server-memory
+    (pkgs.lib.lowPrio pkgs.mcp-server-memory)
     pkgs.nixd
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
 
@@ -109,10 +109,7 @@
       spectral-language-server
       vscode-langservers-extracted
       pyright
-      rust-analyzer
       typescript-language-server
-      rustc
-      cargo
       git
       curl
       black
