@@ -21,6 +21,17 @@
         "github:utensils/mcp-nixos",
         "--"
       ]
+    },
+    "context7": {
+      "command": "nix",
+      "args": [
+        "shell",
+        "nixpkgs#nodejs",
+        "--command",
+        "npx",
+        "-y",
+        "@upstash/context7-mcp"
+      ]
     }
   }
 }
