@@ -24,6 +24,7 @@
   home.packages = [
     pkgs.yazi
     pkgs.fish
+    pkgs.nodejs
     pkgs.tealdeer
     pkgs.ghostty
     pkgs.corepack_24
