@@ -102,7 +102,6 @@
       lua-language-server
       stylua
       bash-language-server
-      nixd
       alejandra
       ast-grep
       yaml-language-server
@@ -118,9 +117,7 @@
       curl
       black
       shfmt
-      rustfmt
       jq
-      nodejs
       uv
       google-java-format
       python3
