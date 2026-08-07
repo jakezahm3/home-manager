@@ -41,6 +41,7 @@
     pkgs.python314Packages.mcp
     pkgs.python314Packages.fastapi-mcp
     pkgs.python314Packages.mcpadapt
+    (pkgs.lib.lowPrio pkgs.mcp-server-sequential-thinking)
     pkgs.mcp-server-fetch
     pkgs.mcp-server-filesystem
     pkgs.mcp-language-server
