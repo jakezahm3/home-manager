@@ -37,6 +37,21 @@
     pkgs.python314Packages.pip
     pkgs.python314Packages.fastmcp
     pkgs.rustup
+    pkgs.toolhive
+    pkgs.python314Packages.mcp
+    pkgs.python314Packages.fastapi-mcp
+    pkgs.python314Packages.mcpadapt
+    pkgs.mcp-server-sequential-thinking
+    pkgs.mcp-server-fetch
+    pkgs.mcp-server-filesystem
+    pkgs.mcp-language-server
+    pkgs.mcp-server-time
+    pkgs.context7-mcp
+    pkgs.mcp-proxy
+    pkgs.open-websearch
+    pkgs.pdf-mcp
+    pkgs.playwright-mcp
+    pkgs.terraform-mcp-server
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
