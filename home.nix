@@ -37,7 +37,6 @@
     pkgs.python314Packages.pip
     pkgs.python314Packages.fastmcp
     pkgs.rustup
-    pkgs.npx
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
