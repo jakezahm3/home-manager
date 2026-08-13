@@ -38,6 +38,7 @@
     pkgs.python314Packages.pip
     pkgs.python314Packages.fastmcp
     pkgs.rustup
+    pkgs.vscode
     pkgs.toolhive
     pkgs.python314Packages.mcp
     pkgs.python314Packages.fastapi-mcp
