@@ -53,6 +53,7 @@
     pkgs.mcp-proxy
     pkgs.open-websearch
     pkgs.pdf-mcp
+    pkgs.dhcpdump
     pkgs.playwright-mcp
     pkgs.terraform-mcp-server
     (pkgs.lib.lowPrio pkgs.mcp-server-memory)
