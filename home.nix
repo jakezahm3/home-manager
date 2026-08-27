@@ -48,6 +48,7 @@
     pkgs.mcp-server-filesystem
     pkgs.mcp-language-server
     pkgs.mcp-server-time
+    pkgs.dnsutils
     pkgs.lua-language-server
     pkgs.context7-mcp
     pkgs.mcp-proxy
