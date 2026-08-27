@@ -59,6 +59,8 @@
     pkgs.terraform-mcp-server
     (pkgs.lib.lowPrio pkgs.mcp-server-memory)
     pkgs.nixd
+    pkgs.gcc
+    pkgs.traceroute
     pkgs.speedtest-rs
     pkgs.stylua
     pkgs.python314Packages.uv
@@ -87,7 +89,7 @@
     interactiveShellInit = ''
       set -gx EDITOR "nvim"
       set -gx VISUAL "nvim"
-
+      alias gp="git add -A && sleep 1 && git commit -m "$(uuidgen)" && sleep 3 && git push -u origin main -f" --save
       if test -f /home/jzahm/.config/home-manager/mcp/.secrets
         source /home/jzahm/.config/home-manager/mcp/.secrets
       end
