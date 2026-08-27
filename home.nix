@@ -59,6 +59,7 @@
     pkgs.terraform-mcp-server
     (pkgs.lib.lowPrio pkgs.mcp-server-memory)
     pkgs.nixd
+    pkgs.speedtest-rs
     pkgs.stylua
     pkgs.python314Packages.uv
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
