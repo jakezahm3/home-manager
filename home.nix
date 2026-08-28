@@ -106,8 +106,6 @@
     };
 
     extraPackages = with pkgs; [
-      nmap
-      rustscan
       ripgrep
       lua-language-server
       stylua
