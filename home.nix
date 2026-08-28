@@ -106,6 +106,7 @@
     };
 
     extraPackages = with pkgs; [
+      cloudflare-warp
       ripgrep
       lua-language-server
       stylua
