@@ -269,9 +269,8 @@ return {
 			"rafamadriz/friendly-snippets",
 		},
 
-		build = function()
-			require("blink.cmp").build():pwait(10000)
-		end,
+		-- Change this build step to use Nix on NixOS
+		build = "nix run .#build-plugin",
 
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
