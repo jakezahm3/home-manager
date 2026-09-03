@@ -24,10 +24,12 @@ return {
 		lazy = false,
 	},
 	{
-		'chomosuke/typst-preview.nvim',
+		"chomosuke/typst-preview.nvim",
 		lazy = false, -- or ft = 'typst'
-		version = '1.*',
-		opts = {},  -- lazy.nvim will implicitly calls `setup {}`
+		version = "1.*",
+		opts = {
+			debug = true,
+		}, -- lazy.nvim will implicitly calls `setup {}`
 	},
 	{
 		{
@@ -136,14 +138,14 @@ return {
 			"ClaudeCodeCloseAllDiffs",
 		},
 		keys = {
-			{ "<leader>a",  nil,                              desc = "AI/Claude Code" },
-			{ "<leader>ac", "<cmd>ClaudeCode<cr>",            desc = "Toggle Claude" },
-			{ "<leader>af", "<cmd>ClaudeCodeFocus<cr>",       desc = "Focus Claude" },
-			{ "<leader>ar", "<cmd>ClaudeCode --resume<cr>",   desc = "Resume Claude" },
+			{ "<leader>a", nil, desc = "AI/Claude Code" },
+			{ "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+			{ "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+			{ "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
 			{ "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
 			{ "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
-			{ "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>",       desc = "Add current buffer" },
-			{ "<leader>as", "<cmd>ClaudeCodeSend<cr>",        mode = "v",                  desc = "Send to Claude" },
+			{ "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+			{ "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
 			{
 				"<leader>as",
 				"<cmd>ClaudeCodeTreeAdd<cr>",
@@ -152,22 +154,22 @@ return {
 			},
 			-- Diff management
 			{ "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
-			{ "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>",   desc = "Deny diff" },
+			{ "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
 		},
 	},
 
-	{ "mason-org/mason.nvim",     enabled = true },
+	{ "mason-org/mason.nvim", enabled = true },
 	-- Disable default nvim-cmp
-	{ "hrsh7th/nvim-cmp",         enabled = false },
+	{ "hrsh7th/nvim-cmp", enabled = false },
 	-- Also disable cmp dependencies that might conflict
-	{ "L3MON4D3/LuaSnip",         enabled = false },
+	{ "L3MON4D3/LuaSnip", enabled = false },
 	{ "saadparwaiz1/cmp_luasnip", enabled = false },
-	{ "hrsh7th/cmp-nvim-lua",     enabled = false },
-	{ "hrsh7th/cmp-nvim-lsp",     enabled = false },
-	{ "hrsh7th/cmp-buffer",       enabled = false },
-	{ "hrsh7th/cmp-path",         enabled = false },
-	{ "windwp/nvim-autopairs",    enabled = true },
-	{ "nvim-mini/mini.nvim",      version = false, enabled = true },
+	{ "hrsh7th/cmp-nvim-lua", enabled = false },
+	{ "hrsh7th/cmp-nvim-lsp", enabled = false },
+	{ "hrsh7th/cmp-buffer", enabled = false },
+	{ "hrsh7th/cmp-path", enabled = false },
+	{ "windwp/nvim-autopairs", enabled = true },
+	{ "nvim-mini/mini.nvim", version = false, enabled = true },
 	{
 		"onsails/lspkind.nvim",
 		enabled = true,
@@ -222,7 +224,7 @@ return {
 		opts = {
 			command = "claude", -- CLI to invoke
 			model = "sonnet", -- passed as --model
-			cli_args = {     -- extra flags (--model is appended automatically)
+			cli_args = { -- extra flags (--model is appended automatically)
 				"-p",
 				"--max-turns",
 				"100",
@@ -239,27 +241,27 @@ return {
 				cancel = "<C-c>",
 			},
 			context = {
-				inline_full_under = 500,                -- send the whole file when shorter than this
-				above = 150,                            -- otherwise lines kept above the cursor
-				below = 50,                             -- and below
-				imports = 20,                           -- leading lines always included
-				diagnostics = 5,                        -- nearest LSP diagnostics to include
-				tree = 15,                              -- top-level project-tree entries
+				inline_full_under = 500, -- send the whole file when shorter than this
+				above = 150, -- otherwise lines kept above the cursor
+				below = 50, -- and below
+				imports = 20, -- leading lines always included
+				diagnostics = 5, -- nearest LSP diagnostics to include
+				tree = 15, -- top-level project-tree entries
 			},
-			auto = {                                  -- the automatic, Cursor-style lane (opt-in)
-				enabled = false,                        -- off by default
-				model = "claude-haiku-4-5",             -- a cheap, fast model is strongly recommended
-				debounce_ms = 350,                      -- idle time before a completion is requested
-				idle_shutdown_min = 10,                 -- stop the worker after this many idle minutes
-				max_filesize_kb = 500,                  -- skip buffers larger than this
-				max_lines = 10000,                      -- skip buffers with more lines than this
+			auto = { -- the automatic, Cursor-style lane (opt-in)
+				enabled = false, -- off by default
+				model = "claude-haiku-4-5", -- a cheap, fast model is strongly recommended
+				debounce_ms = 350, -- idle time before a completion is requested
+				idle_shutdown_min = 10, -- stop the worker after this many idle minutes
+				max_filesize_kb = 500, -- skip buffers larger than this
+				max_lines = 10000, -- skip buffers with more lines than this
 				disabled_filetypes = { "TelescopePrompt", "snacks_picker_input", "oil" },
-				show_with_menu = true,                  -- show ghost text even when the completion menu is open
-				hint = { enabled = true, text = nil },  -- source badge; text=nil derives from the model
-				blink = { enabled = false },            -- advisory flag for the blink.cmp source (see below)
+				show_with_menu = true, -- show ghost text even when the completion menu is open
+				hint = { enabled = true, text = nil }, -- source badge; text=nil derives from the model
+				blink = { enabled = false }, -- advisory flag for the blink.cmp source (see below)
 				worker_env = { MAX_THINKING_TOKENS = "0" }, -- worker-only env; {} re-enables thinking
 			},
-			system_prompt = nil,                      -- string to replace the built-in prompt (manual lane)
+			system_prompt = nil, -- string to replace the built-in prompt (manual lane)
 			highlights = {
 				ghost = { fg = "#b4befe", italic = true },
 			},
