@@ -169,6 +169,10 @@
       source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/home-manager/mcp/mcp-nixos.json;
       force = true;
     };
+    "/home/jzahm/.config/helix/languages.toml" = {
+      source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/home-manager/dot-files/languages.toml;
+      force = true;
+    };
   };
 
   # Home Manager can also manage your environment variables through

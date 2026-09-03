@@ -1,0 +1,10 @@
+# ~/.config/helix/languages.toml
+
+[[language]]
+name = "nix"
+auto-format = true
+language-servers = [ "nixd" ]
+formatter = { command = "nixfmt" }
+
+[language-server.nixd]
+command = "nixd"
