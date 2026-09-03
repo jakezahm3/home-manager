@@ -63,6 +63,7 @@
     pkgs.traceroute
     pkgs.speedtest-rs
     pkgs.stylua
+    pkgs.nixfmt
     pkgs.python314Packages.uv
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
 
@@ -171,6 +172,10 @@
     };
     "/home/jzahm/.config/helix/languages.toml" = {
       source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/home-manager/dot-files/languages.toml;
+      force = true;
+    };
+    "/home/jzahm/.config/helix/config.toml" = {
+      source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/home-manager/dot-files/config.toml;
       force = true;
     };
   };

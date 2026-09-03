@@ -1,0 +1,20 @@
+theme = "ao"
+
+[editor]
+line-number = "relative" # Options: "absolute", "relative"
+mouse = true             # Enable mouse support
+scrolloff = 5            # Number of lines to keep above/below the cursor
+bufferline = "always"    # Options: "always", "never", "multiple"
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "underline"
+
+[editor.lsp]
+display-inlay-hints = true
+
+[editor.indent-guides]
+render = true
+character = "╎"
+
