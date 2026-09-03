@@ -69,6 +69,7 @@
     pkgs.typstPackages.modern-cv
     pkgs.tinymist
     pkgs.prettypst
+    pkgs.typst
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
 
     # # Adds the 'hello' command to your environment. It prints a friendly
