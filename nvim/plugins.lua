@@ -265,14 +265,11 @@ return {
 		lazy = false,
 		dependencies = {
 			"saghen/blink.lib",
-			-- optional: provides snippets for the snippet source
 			"rafamadriz/friendly-snippets",
 		},
 
-		-- Pass it as a function that executes the shell command explicitly
-		build = function()
-			vim.fn.system("nix run .#build-plugin")
-		end,
+		-- 1. Remove the build step entirely
+		build = nil,
 
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
@@ -287,12 +284,47 @@ return {
 					},
 				},
 			},
-			fuzzy = { implementation = "rust" },
+			-- 2. Switch from "rust" to "lua"
+			fuzzy = { implementation = "lua" },
 			sources = {
 				default = { "lsp", "path", "snippets", "buffer" },
 			},
 		},
 	},
+
+	-- {
+	-- 	"saghen/blink.cmp",
+	-- 	lazy = false,
+	-- 	dependencies = {
+	-- 		"saghen/blink.lib",
+	-- 		-- optional: provides snippets for the snippet source
+	-- 		"rafamadriz/friendly-snippets",
+	-- 	},
+	--
+	-- 	-- Pass it as a function that executes the shell command explicitly
+	-- 	build = function()
+	-- 		vim.fn.system("nix run .#build-plugin")
+	-- 	end,
+	--
+	-- 	---@module 'blink.cmp'
+	-- 	---@type blink.cmp.Config
+	-- 	opts = {
+	-- 		keymap = { preset = "default" },
+	-- 		completion = {
+	-- 			documentation = { auto_show = false },
+	-- 			menu = {
+	-- 				draw = {
+	-- 					padding = 1,
+	-- 					components = {},
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 		fuzzy = { implementation = "rust" },
+	-- 		sources = {
+	-- 			default = { "lsp", "path", "snippets", "buffer" },
+	-- 		},
+	-- 	},
+	-- },
 	{
 		"mrcjkb/rustaceanvim",
 		-- To avoid being surprised by breaking changes,
