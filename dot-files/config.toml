@@ -1,4 +1,4 @@
-theme = "ao"
+theme = "beans"
 
 [editor]
 line-number = "relative" # Options: "absolute", "relative"
