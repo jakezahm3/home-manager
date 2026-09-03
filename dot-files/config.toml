@@ -5,6 +5,7 @@ line-number = "relative" # Options: "absolute", "relative"
 mouse = true             # Enable mouse support
 scrolloff = 5            # Number of lines to keep above/below the cursor
 bufferline = "always"    # Options: "always", "never", "multiple"
+end-of-line-diagnostics = "hint"
 
 [editor.cursor-shape]
 normal = "block"
@@ -18,3 +19,22 @@ display-inlay-hints = true
 render = true
 character = "╎"
 
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["file-name"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+diagnostics = ["warning", "error"]
+workspace-diagnostics = ["warning", "error"]
+
+[editor.inline-diagnostics]
+cursor-line = "warning" # show warnings and errors on the cursorline inline
+
+[editor.soft-wrap]
+enable = true
+max-wrap = 25 # increase value to reduce forced mid-word wrapping
+max-indent-retain = 0
+wrap-indicator = ""  # set wrap-indicator to "" to hide it
