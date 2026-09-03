@@ -81,6 +81,7 @@ local servers = {
 	fish_lsp = {},
 	lua_ls = {},
 	texlab = {},
+	tinymist = {},
 }
 
 for name, opts in pairs(servers) do
@@ -180,6 +181,7 @@ require("conform").setup({
 		markdown = { "prettierd" },
 		fish = { "fish_indent" },
 		latex = { "tex-fmt" },
+		typst = { "prettypst" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
