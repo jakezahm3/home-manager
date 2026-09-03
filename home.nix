@@ -66,6 +66,7 @@
     pkgs.stylua
     pkgs.nixfmt
     pkgs.python314Packages.uv
+    pkgs.typesetter
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
 
     # # Adds the 'hello' command to your environment. It prints a friendly
