@@ -269,8 +269,10 @@ return {
 			"rafamadriz/friendly-snippets",
 		},
 
-		-- Change this build step to use Nix on NixOS
-		build = "nix run .#build-plugin",
+		-- Pass it as a function that executes the shell command explicitly
+		build = function()
+			vim.fn.system("nix run .#build-plugin")
+		end,
 
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
