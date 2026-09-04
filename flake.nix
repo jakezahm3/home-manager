@@ -23,7 +23,7 @@
     claude-desktop.url = "github:k3d3/claude-desktop-linux-flake";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-26.05";
       # home-manager would pin its *own* nixpkgs revision, and you'd end up
       # with two different copies of nixpkgs in the closure — more disk
       # space, longer evaluation, and subtle bugs from mismatched package
