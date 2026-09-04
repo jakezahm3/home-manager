@@ -89,6 +89,8 @@
     pkgs.bibtex-tidy
     pkgs.xdotool
     pkgs.texliveSmall
+    pkgs.pstree
+    pkgs.latexmk
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
   ];
 
