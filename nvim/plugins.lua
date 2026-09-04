@@ -12,34 +12,34 @@ end
 require("base46").load_all_highlights()
 -- onfiguration using new vim.lsp.config API
 return {
-	{
-		"neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
-		lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
-		dependencies = {
-			-- main one
-			{ "ms-jpq/coq_nvim", branch = "coq" },
-
-			-- 9000+ Snippets
-			{ "ms-jpq/coq.artifacts", branch = "artifacts" },
-
-			-- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
-			-- Need to **configure separately**
-			{ "ms-jpq/coq.thirdparty", branch = "3p" },
-			-- - shell repl
-			-- - nvim lua api
-			-- - scientific calculator
-			-- - comment banner
-			-- - etc
-		},
-		init = function()
-			vim.g.coq_settings = {
-				-- Your COQ settings here
-			}
-		end,
-		config = function()
-			-- Your LSP settings here
-		end,
-	},
+	-- {
+	-- 	"neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
+	-- 	lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
+	-- 	dependencies = {
+	-- 		-- main one
+	-- 		{ "ms-jpq/coq_nvim", branch = "coq" },
+	--
+	-- 		-- 9000+ Snippets
+	-- 		{ "ms-jpq/coq.artifacts", branch = "artifacts" },
+	--
+	-- 		-- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+	-- 		-- Need to **configure separately**
+	-- 		{ "ms-jpq/coq.thirdparty", branch = "3p" },
+	-- 		-- - shell repl
+	-- 		-- - nvim lua api
+	-- 		-- - scientific calculator
+	-- 		-- - comment banner
+	-- 		-- - etc
+	-- 	},
+	-- 	init = function()
+	-- 		vim.g.coq_settings = {
+	-- 			-- Your COQ settings here
+	-- 		}
+	-- 	end,
+	-- 	config = function()
+	-- 		-- Your LSP settings here
+	-- 	end,
+	-- },
 	{
 		"stevearc/oil.nvim",
 		---@module 'oil'
@@ -306,97 +306,97 @@ return {
 			keymap = { enabled = true },
 		},
 	},
-	-- {
-	-- 	"ramanshrivastava/claude-complete.nvim",
-	-- 	event = "InsertEnter",
-	-- 	opts = {
-	-- 		command = "claude", -- CLI to invoke
-	-- 		model = "sonnet", -- passed as --model
-	-- 		cli_args = { -- extra flags (--model is appended automatically)
-	-- 			"-p",
-	-- 			"--max-turns",
-	-- 			"100",
-	-- 			"--output-format",
-	-- 			"stream-json",
-	-- 			"--verbose",
-	-- 			"--permission-mode",
-	-- 			"bypassPermissions",
-	-- 		},
-	-- 		timeout_ms = 60000,
-	-- 		keymaps = { -- set any to false to leave it unbound
-	-- 			trigger = "<C-g>",
-	-- 			accept = "<Tab>",
-	-- 			cancel = "<C-c>",
-	-- 		},
-	-- 		context = {
-	-- 			inline_full_under = 500, -- send the whole file when shorter than this
-	-- 			above = 150, -- otherwise lines kept above the cursor
-	-- 			below = 50, -- and below
-	-- 			imports = 20, -- leading lines always included
-	-- 			diagnostics = 5, -- nearest LSP diagnostics to include
-	-- 			tree = 15, -- top-level project-tree entries
-	-- 		},
-	-- 		auto = { -- the automatic, Cursor-style lane (opt-in)
-	-- 			enabled = false, -- off by default
-	-- 			model = "claude-haiku-4-5", -- a cheap, fast model is strongly recommended
-	-- 			debounce_ms = 350, -- idle time before a completion is requested
-	-- 			idle_shutdown_min = 10, -- stop the worker after this many idle minutes
-	-- 			max_filesize_kb = 500, -- skip buffers larger than this
-	-- 			max_lines = 10000, -- skip buffers with more lines than this
-	-- 			disabled_filetypes = { "TelescopePrompt", "snacks_picker_input", "oil" },
-	-- 			show_with_menu = true, -- show ghost text even when the completion menu is open
-	-- 			hint = { enabled = true, text = nil }, -- source badge; text=nil derives from the model
-	-- 			blink = { enabled = true }, -- advisory flag for the blink.cmp source (see below)
-	-- 			worker_env = { MAX_THINKING_TOKENS = "0" }, -- worker-only env; {} re-enables thinking
-	-- 		},
-	-- 		system_prompt = nil, -- string to replace the built-in prompt (manual lane)
-	-- 		highlights = {
-	-- 			ghost = { fg = "#b4befe", italic = true },
-	-- 		},
-	-- 		ui = { rich = true }, -- rich snacks panel when available, else cmdline spinner
-	-- 	},
-	-- },
-	-- {
-	-- 	"saghen/blink.cmp",
-	-- 	lazy = false,
-	-- 	dependencies = {
-	-- 		"saghen/blink.lib",
-	-- 		"rafamadriz/friendly-snippets",
-	-- 	},
-	--
-	-- 	build = function()
-	-- 		-- build the fuzzy matcher, optionally add a timeout to `pwait(timeout_ms)`
-	-- 		-- you can use `gb` in `:Lazy` to rebuild the plugin as needed
-	-- 		require("blink.cmp").build():pwait()
-	-- 	end,
-	--
-	-- 	---@module 'blink.cmp'
-	-- 	---@type blink.cmp.Config
-	-- 	opts = {
-	-- 		keymap = { preset = "default" },
-	-- 		completion = {
-	-- 			documentation = { auto_show = false },
-	-- 			menu = {
-	-- 				draw = {
-	-- 					padding = 1,
-	-- 					components = {},
-	-- 				},
-	-- 			},
-	-- 		},
-	-- 		-- 2. Switch from "rust" to "lua"
-	-- 		fuzzy = { implementation = "rust" },
-	-- 		sources = {
-	-- 			default = { "lsp", "path", "snippets", "buffer", "claude" },
-	-- 			providers = {
-	-- 				claude = {
-	-- 					name = "claude",
-	-- 					module = "claude-complete.blink",
-	-- 					score_offset = 100,
-	-- 				},
-	-- 			},
-	-- 		},
-	-- 	},
-	-- },
+	{
+		"ramanshrivastava/claude-complete.nvim",
+		event = "InsertEnter",
+		opts = {
+			command = "claude", -- CLI to invoke
+			model = "sonnet", -- passed as --model
+			cli_args = { -- extra flags (--model is appended automatically)
+				"-p",
+				"--max-turns",
+				"100",
+				"--output-format",
+				"stream-json",
+				"--verbose",
+				"--permission-mode",
+				"bypassPermissions",
+			},
+			timeout_ms = 60000,
+			keymaps = { -- set any to false to leave it unbound
+				trigger = "<C-g>",
+				accept = "<Tab>",
+				cancel = "<C-c>",
+			},
+			context = {
+				inline_full_under = 500, -- send the whole file when shorter than this
+				above = 150, -- otherwise lines kept above the cursor
+				below = 50, -- and below
+				imports = 20, -- leading lines always included
+				diagnostics = 5, -- nearest LSP diagnostics to include
+				tree = 15, -- top-level project-tree entries
+			},
+			auto = { -- the automatic, Cursor-style lane (opt-in)
+				enabled = false, -- off by default
+				model = "claude-haiku-4-5", -- a cheap, fast model is strongly recommended
+				debounce_ms = 350, -- idle time before a completion is requested
+				idle_shutdown_min = 10, -- stop the worker after this many idle minutes
+				max_filesize_kb = 500, -- skip buffers larger than this
+				max_lines = 10000, -- skip buffers with more lines than this
+				disabled_filetypes = { "TelescopePrompt", "snacks_picker_input", "oil" },
+				show_with_menu = true, -- show ghost text even when the completion menu is open
+				hint = { enabled = true, text = nil }, -- source badge; text=nil derives from the model
+				blink = { enabled = true }, -- advisory flag for the blink.cmp source (see below)
+				worker_env = { MAX_THINKING_TOKENS = "0" }, -- worker-only env; {} re-enables thinking
+			},
+			system_prompt = nil, -- string to replace the built-in prompt (manual lane)
+			highlights = {
+				ghost = { fg = "#b4befe", italic = true },
+			},
+			ui = { rich = true }, -- rich snacks panel when available, else cmdline spinner
+		},
+	},
+	{
+		"saghen/blink.cmp",
+		lazy = false,
+		dependencies = {
+			"saghen/blink.lib",
+			"rafamadriz/friendly-snippets",
+		},
+
+		build = function()
+			-- build the fuzzy matcher, optionally add a timeout to `pwait(timeout_ms)`
+			-- you can use `gb` in `:Lazy` to rebuild the plugin as needed
+			require("blink.cmp").build():pwait()
+		end,
+
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
+		opts = {
+			keymap = { preset = "default" },
+			completion = {
+				documentation = { auto_show = false },
+				menu = {
+					draw = {
+						padding = 1,
+						components = {},
+					},
+				},
+			},
+			-- 2. Switch from "rust" to "lua"
+			fuzzy = { implementation = "rust" },
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer", "claude" },
+				providers = {
+					claude = {
+						name = "claude",
+						module = "claude-complete.blink",
+						score_offset = 100,
+					},
+				},
+			},
+		},
+	},
 	{
 		"brenton-leighton/multiple-cursors.nvim",
 		version = "*", -- Use the latest tagged version

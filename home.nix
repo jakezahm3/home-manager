@@ -137,9 +137,6 @@
       fish-lsp
       texlab
       tex-fmt
-      vale-ls
-      bacon
-      ast-grep
     ];
     extraConfig =
       builtins.replaceStrings
