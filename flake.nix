@@ -16,7 +16,7 @@
     # at the `nixpkgs-unstable` branch of the official GitHub repo means
     # "track the rolling, most-up-to-date package set" rather than a
     # versioned stable release like `nixos-24.11`.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     # Not following our nixpkgs here: this flake's own claude-desktop.nix
     # references `nodePackages.asar`, which our rolling nixpkgs-unstable
     # has since removed. Let it use its own pinned, compatible nixpkgs.
