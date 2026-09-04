@@ -85,12 +85,10 @@
     pkgs.taplo
     pkgs.black
     pkgs.zathura
-    pkgs.biber
     pkgs.bibtex-tidy
     pkgs.xdotool
     pkgs.texliveFull
     pkgs.pstree
-    pkgs.texlivePackages.latexmk
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
   ];
 
@@ -191,6 +189,10 @@
     };
     "/home/jzahm/.config/nvim/lua/configs/conform.lua" = {
       source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/home-manager/nvim/conform.lua;
+      force = true;
+    };
+    "/home/jzahm/.config/nvim/lua/configs/lspconfig.lua" = {
+      source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/home-manager/nvim/lspconfig.lua;
       force = true;
     };
   };
