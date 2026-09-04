@@ -196,6 +196,10 @@ return {
 		},
 	},
 	{
+		"nvim-treesitter/nvim-treesitter",
+		opts = { ensure_installed = { "html", "css", "bash", "regex", "nix", "lua" } },
+	},
+	{
 		"HiPhish/rainbow-delimiters.nvim",
 		lazy = false,
 		dependencies = "nvim-treesitter/nvim-treesitter",

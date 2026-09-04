@@ -74,6 +74,7 @@
     pkgs.imagemagick
     pkgs.ghostscript
     pkgs.ueberzugpp
+    pkgs.tree-sitter-cli
 
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
 
