@@ -71,6 +71,10 @@
     pkgs.prettypst
     pkgs.typst
     pkgs.gimp
+    pkgs.imagemagick
+    pkgs.ghostscript
+    pkgs.ueberzugpp
+
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
 
     # # Adds the 'hello' command to your environment. It prints a friendly
@@ -111,14 +115,10 @@
       withNodeJs = true;
       withPython3 = true;
     };
-    extraLuaPackages = ps: [ps.magick];
     extraPackages = with pkgs; [
       ripgrep
       lua-language-server
       stylua
-      imagemagick
-      ghostscript
-      ueberzugpp
       bash-language-server
       alejandra
       ast-grep
