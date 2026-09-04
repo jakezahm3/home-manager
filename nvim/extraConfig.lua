@@ -16,6 +16,19 @@ vim.opt.expandtab = true
 vim.api.nvim_set_hl(0, "BlinkCmpKindSupermaven", { fg = "#7aa2f7", bold = true })
 vim.api.nvim_set_hl(0, "BlinkCmpLabelSupermaven", { fg = "#bb9af7", italic = true })
 
+-- Define a custom color named 'MyYankColor' with a dark purple background
+vim.api.nvim_set_hl(0, "MyYankColor", { bg = "#d700ff", fg = "#000000" })
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank({
+			higroup = "MyYankColor", -- Use your custom group here
+			timeout = 200,
+		})
+	end,
+})
+
 require("dropbar").setup({
 	bar = {
 		enable = function(buf, win, _)
