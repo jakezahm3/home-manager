@@ -78,6 +78,13 @@
     pkgs.tectonic
     pkgs.mermaid-cli
     pkgs.krita
+    pkgs.rustywind
+    pkgs.alejandra
+    pkgs.prettierd
+    pkgs.beautysh
+    pkgs.taplo
+    pkgs.black
+  ];
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
 
     # # Adds the 'hello' command to your environment. It prints a friendly
@@ -123,7 +130,6 @@
       lua-language-server
       stylua
       bash-language-server
-      alejandra
       ast-grep
       yaml-language-server
       prettierd
@@ -192,6 +198,10 @@
     };
     "/home/jzahm/.config/helix/config.toml" = {
       source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/home-manager/dot-files/config.toml;
+      force = true;
+    };
+    "/home/jzahm/.config/nvim/lua/configs/conform.lua" = {
+      source = config.lib.file.mkOutOfStoreSymlink /home/jzahm/.config/home-manager/dot-files/conform.lua;
       force = true;
     };
   };
