@@ -35,13 +35,13 @@
     pkgs.neovide
     pkgs.eyedropper
     pkgs.mcp-nixos
-    pkgs.python314Packages.pip
-    pkgs.python314Packages.fastmcp
+    pkgs.python313Packages.pip
+    pkgs.python313Packages.fastmcp
     pkgs.vscode
     pkgs.toolhive
-    pkgs.python314Packages.mcp
-    pkgs.python314Packages.fastapi-mcp
-    pkgs.python314Packages.mcpadapt
+    pkgs.python313Packages.mcp
+    pkgs.python313Packages.fastapi-mcp
+    pkgs.python313Packages.mcpadapt
     (pkgs.lib.lowPrio pkgs.mcp-server-sequential-thinking)
     pkgs.mcp-server-fetch
     pkgs.mcp-server-filesystem
@@ -63,7 +63,7 @@
     pkgs.speedtest-rs
     pkgs.stylua
     pkgs.nixfmt
-    pkgs.python314Packages.uv
+    pkgs.python313Packages.uv
     pkgs.typesetter
     pkgs.typstPackages.modern-cv
     pkgs.tinymist
@@ -89,6 +89,8 @@
     pkgs.xdotool
     pkgs.texliveFull
     pkgs.pstree
+    pkgs.pyright
+    pkgs.black
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
   ];
 
@@ -122,11 +124,9 @@
       prettierd
       spectral-language-server
       vscode-langservers-extracted
-      pyright
       typescript-language-server
       git
       curl
-      black
       shfmt
       jq
       uv
