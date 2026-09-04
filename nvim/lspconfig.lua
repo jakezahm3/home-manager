@@ -1,7 +1,7 @@
 require("nvchad.configs.lspconfig").defaults()
 
-local coq = require("coq")
-local nvlsp = require("nvchad.configs.lspconfig")
+--local coq = require("coq")
+--local nvlsp = require("nvchad.configs.lspconfig")
 
 local servers = {
 	"html",
@@ -17,15 +17,15 @@ local servers = {
 	"jsonls",
 }
 
-for _, lsp in ipairs(servers) do
-	vim.lsp.config(
-		lsp,
-		coq.lsp_ensure_capabilities({
-			on_attach = nvlsp.on_attach,
-			on_init = nvlsp.on_init,
-			capabilities = nvlsp.capabilities,
-		})
-	)
-end
+-- for _, lsp in ipairs(servers) do
+-- 	vim.lsp.config(
+-- 		lsp,
+-- 		coq.lsp_ensure_capabilities({
+-- 			on_attach = nvlsp.on_attach,
+-- 			on_init = nvlsp.on_init,
+-- 			capabilities = nvlsp.capabilities,
+-- 		})
+-- 	)
+-- end
 
 vim.lsp.enable(servers)
