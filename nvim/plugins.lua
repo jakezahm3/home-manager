@@ -226,6 +226,19 @@ return {
 	},
 	{ "nvim-lua/plenary.nvim" },
 	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+			image = { enabled = true },
+			dashboard = { enabled = true, example = "doom" },
+		},
+	},
+	{
 		"ramanshrivastava/claude-complete.nvim",
 		event = "InsertEnter",
 		opts = {
