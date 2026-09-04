@@ -87,6 +87,8 @@
     pkgs.zathura
     pkgs.biber
     pkgs.bibtex-tidy
+    pkgs.xdotool
+    pkgs.texliveSmall
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
   ];
 
