@@ -86,7 +86,7 @@
     pkgs.black
     pkgs.zathura
     pkgs.biber
-    pkgs.biblatex
+    pkgs.bibtex-tidy
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
   ];
 
