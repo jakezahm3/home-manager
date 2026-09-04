@@ -12,34 +12,34 @@ end
 require("base46").load_all_highlights()
 -- onfiguration using new vim.lsp.config API
 return {
-	{
-		"neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
-		lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
-		dependencies = {
-			-- main one
-			{ "ms-jpq/coq_nvim", branch = "coq" },
-
-			-- 9000+ Snippets
-			{ "ms-jpq/coq.artifacts", branch = "artifacts" },
-
-			-- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
-			-- Need to **configure separately**
-			{ "ms-jpq/coq.thirdparty", branch = "3p" },
-			-- - shell repl
-			-- - nvim lua api
-			-- - scientific calculator
-			-- - comment banner
-			-- - etc
-		},
-		init = function()
-			vim.g.coq_settings = {
-				-- Your COQ settings here
-			}
-		end,
-		config = function()
-			-- Your LSP settings here
-		end,
-	},
+	-- {
+	-- 	"neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
+	-- 	lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
+	-- 	dependencies = {
+	-- 		-- main one
+	-- 		{ "ms-jpq/coq_nvim", branch = "coq" },
+	--
+	-- 		-- 9000+ Snippets
+	-- 		{ "ms-jpq/coq.artifacts", branch = "artifacts" },
+	--
+	-- 		-- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+	-- 		-- Need to **configure separately**
+	-- 		{ "ms-jpq/coq.thirdparty", branch = "3p" },
+	-- 		-- - shell repl
+	-- 		-- - nvim lua api
+	-- 		-- - scientific calculator
+	-- 		-- - comment banner
+	-- 		-- - etc
+	-- 	},
+	-- 	init = function()
+	-- 		vim.g.coq_settings = {
+	-- 			-- Your COQ settings here
+	-- 		}
+	-- 	end,
+	-- 	config = function()
+	-- 		-- Your LSP settings here
+	-- 	end,
+	-- },
 	{
 		"stevearc/oil.nvim",
 		---@module 'oil'
@@ -354,8 +354,11 @@ return {
 			"rafamadriz/friendly-snippets",
 		},
 
-		-- 1. Remove the build step entirely
-		build = nil,
+		build = function()
+			-- build the fuzzy matcher, optionally add a timeout to `pwait(timeout_ms)`
+			-- you can use `gb` in `:Lazy` to rebuild the plugin as needed
+			require("blink.cmp").build():pwait()
+		end,
 
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
@@ -371,46 +374,12 @@ return {
 				},
 			},
 			-- 2. Switch from "rust" to "lua"
-			fuzzy = { implementation = "lua" },
+			fuzzy = { implementation = "rust" },
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
+				default = { "lsp", "path", "snippets", "buffer", "claude" },
 			},
 		},
 	},
-
-	-- {
-	-- 	"saghen/blink.cmp",
-	-- 	lazy = false,
-	-- 	dependencies = {
-	-- 		"saghen/blink.lib",
-	-- 		-- optional: provides snippets for the snippet source
-	-- 		"rafamadriz/friendly-snippets",
-	-- 	},
-	--
-	-- 	-- Pass it as a function that executes the shell command explicitly
-	-- 	build = function()
-	-- 		vim.fn.system("nix run .#build-plugin")
-	-- 	end,
-	--
-	-- 	---@module 'blink.cmp'
-	-- 	---@type blink.cmp.Config
-	-- 	opts = {
-	-- 		keymap = { preset = "default" },
-	-- 		completion = {
-	-- 			documentation = { auto_show = false },
-	-- 			menu = {
-	-- 				draw = {
-	-- 					padding = 1,
-	-- 					components = {},
-	-- 				},
-	-- 			},
-	-- 		},
-	-- 		fuzzy = { implementation = "rust" },
-	-- 		sources = {
-	-- 			default = { "lsp", "path", "snippets", "buffer" },
-	-- 		},
-	-- 	},
-	-- },
 	{
 		"mrcjkb/rustaceanvim",
 		-- To avoid being surprised by breaking changes,
