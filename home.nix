@@ -3,14 +3,13 @@
   inputs,
   pkgs,
   ...
-}:
-{
+}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "jzahm";
   home.homeDirectory = "/home/jzahm";
 
-  imports = [ inputs.nix4nvchad.homeManagerModules.default ];
+  imports = [inputs.nix4nvchad.homeManagerModules.default];
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -85,6 +84,9 @@
     pkgs.beautysh
     pkgs.taplo
     pkgs.black
+    pkgs.zathura
+    pkgs.biber
+    pkgs.biblatex
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
   ];
 
@@ -139,11 +141,11 @@
     ];
     extraConfig =
       builtins.replaceStrings
-        [ "@PYTHON3_HOST_PROG@" ]
-        [
-          "${pkgs.python3.withPackages (p: [ p.pynvim ])}/bin/python3"
-        ]
-        (builtins.readFile ./nvim/extraConfig.lua);
+      ["@PYTHON3_HOST_PROG@"]
+      [
+        "${pkgs.python3.withPackages (p: [p.pynvim])}/bin/python3"
+      ]
+      (builtins.readFile ./nvim/extraConfig.lua);
     chadrcConfig = builtins.readFile ./nvim/chadrc.lua;
     extraPlugins = builtins.readFile ./nvim/plugins.lua;
   };
