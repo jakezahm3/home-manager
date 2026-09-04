@@ -37,7 +37,6 @@
     pkgs.mcp-nixos
     pkgs.python314Packages.pip
     pkgs.python314Packages.fastmcp
-    pkgs.rustup
     pkgs.vscode
     pkgs.toolhive
     pkgs.python314Packages.mcp
@@ -74,8 +73,10 @@
     pkgs.imagemagick
     pkgs.ghostscript
     pkgs.ueberzugpp
-    pkgs.tree-sitter-cli
-
+    pkgs.rust-analyzer
+    pkgs.rustc
+    pkgs.tectonic
+    pkgs.mermaid-cli
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
 
     # # Adds the 'hello' command to your environment. It prints a friendly
