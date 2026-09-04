@@ -70,6 +70,7 @@
     pkgs.tinymist
     pkgs.prettypst
     pkgs.typst
+    pkgs.gimp
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
 
     # # Adds the 'hello' command to your environment. It prints a friendly
