@@ -90,7 +90,7 @@
     pkgs.xdotool
     pkgs.texliveSmall
     pkgs.pstree
-    pkgs.latexmk
+    pkgs.texlivePackages.latexmk
     inputs.claude-desktop.packages.${pkgs.system}.claude-desktop-with-fhs
   ];
 
