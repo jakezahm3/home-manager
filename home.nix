@@ -51,8 +51,8 @@
     pkgs.lua-language-server
     pkgs.context7-mcp
     pkgs.mcp-proxy
-    #pkgs.open-websearch
-    #pkgs.pdf-mcp
+    pkgs.open-websearch
+    pkgs.pdf-mcp
     pkgs.dhcpdump
     pkgs.playwright-mcp
     pkgs.terraform-mcp-server

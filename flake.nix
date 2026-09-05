@@ -16,14 +16,15 @@
     # at the `nixpkgs-unstable` branch of the official GitHub repo means
     # "track the rolling, most-up-to-date package set" rather than a
     # versioned stable release like `nixos-24.11`.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # Not following our nixpkgs here: this flake's own claude-desktop.nix
     # references `nodePackages.asar`, which our rolling nixpkgs-unstable
     # has since removed. Let it use its own pinned, compatible nixpkgs.
     claude-desktop.url = "github:k3d3/claude-desktop-linux-flake";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
+      #url = "github:nix-community/home-manager/release-26.05";
+      url = "github:nix-community/home-manager";
       # home-manager would pin its *own* nixpkgs revision, and you'd end up
       # with two different copies of nixpkgs in the closure — more disk
       # space, longer evaluation, and subtle bugs from mismatched package
